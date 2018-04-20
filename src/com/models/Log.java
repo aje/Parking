@@ -1,8 +1,8 @@
 package com.models;
 
-public class SpotAddress {
+public class Log {
 
-	public SpotAddress() {
+	public Log() {
 		// TODO Auto-generated constructor stub
 	}
 

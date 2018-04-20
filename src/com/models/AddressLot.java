@@ -1,8 +1,8 @@
 package com.models;
 
-public class Address {
+public class AddressLot {
 
-	public Address() {
+	public AddressLot() {
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -22,7 +22,7 @@ public class Lot {
 	private int type;
 	private int capacity;
 	private String name;
-	private Address address;
+	private AddressLot address;
 	private Date created_at;
 	private Date updated_at;
 
@@ -39,7 +39,7 @@ public class Lot {
 	}
 
 
-	public void setAddress(Address address) {
+	public void setAddress(AddressLot address) {
 		this.address = address;
 	}
 
@@ -68,7 +68,7 @@ public class Lot {
 		return type;
 	}
 
-	public Address getAddress() {
+	public AddressLot getAddress() {
 		return address;
 	}
 

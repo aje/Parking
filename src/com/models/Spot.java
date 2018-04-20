@@ -20,10 +20,9 @@ public class Spot {
 	private int id;
 	private int type;
 	private Lora loraSpot;
-	private int floor;
-	private int row;
+	private Lot lot;
 	private boolean status;
-	private SpotAddress spotAddress;
+	private AddressSpot spotAddress;
 	private Date created_at;
 	private Date updated_at;
 
@@ -38,19 +37,15 @@ public class Spot {
 		this.type = type;
 	}
 
-	public void setFloor(int floor) {
-		this.floor = floor;
+	public void setLot(Lot lot) {
+		this.lot = lot;
 	}
 	
-	public void setRow(int row) {
-		this.row = row;
-	}
-
 	public void setLoraSpot(Lora loraSpot) {
 		this.loraSpot = loraSpot;
 	}
 
-	public void setSpotLocation(SpotAddress spotAddress) {
+	public void setSpotLocation(AddressSpot spotAddress) {
 		this.spotAddress = spotAddress;
 	}
 
@@ -69,19 +64,16 @@ public class Spot {
 		return type;
 	}
 
-	public int getFloor() {
-		return floor;
+	public Lot getLot() {
+		return lot;
 	}
 
-	public int getRow() {
-		return row;
-	}
 
 	public Lora getLoraSpot() {
 		return loraSpot;
 	}
 
-	public SpotAddress getSpotLocation() {
+	public AddressSpot getSpotLocation() {
 		return spotAddress;
 	}
 

@@ -16,6 +16,7 @@ public class Order {
 	private User user;
 	private Spot spot;
 	private Date startTime;
+	private Factor factore;
 	private Date endTime;
 	private Date created_at;
 	private Date updated_at;
