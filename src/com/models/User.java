@@ -16,7 +16,6 @@ import javax.validation.constraints.Pattern;
 
 public class User {
 	
-	
 	@Autowired
 	DataSource dataSource;
 
