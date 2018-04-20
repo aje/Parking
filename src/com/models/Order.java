@@ -1,5 +1,7 @@
 package com.models;
 
+import java.util.Date;
+
 public class Order {
 
 	public Order() {
@@ -22,34 +24,34 @@ public class Order {
 	* setters
 	*/
 
-	public setPrice(int price){
+	public void setPrice(int price){
 		this.price = price;
 	}
-	public setType(int type){
+	public void setType(int type){
 		this.type = type;
 	}
-	public setStatus(boolean status){
+	public void setStatus(boolean status){
 		this.status = status;
 	}
-	public setLot(Lot lot){
+	public void setLot(Lot lot){
 		this.lot = lot;
 	}
-	public setUser(User user){
+	public void etUser(User user){
 		this.user = user;
 	}
-	public setSpot(Spot spot){
+	public void setSpot(Spot spot){
 		this.spot = spot;
 	}
-	public setStartTime(Date startTime){
+	public void setStartTime(Date startTime){
 		this.startTime = startTime;
 	}
-	public setEndTime(Date endTime){
+	public void setEndTime(Date endTime){
 		this.endTime = endTime;
 	}
-	public setCreated_at(Date created_at){
+	public void setCreated_at(Date created_at){
 		this.created_at = created_at;
 	}
-	public setUpdated_at(Date updated_at){
+	public void setUpdated_at(Date updated_at){
 		this.updated_at = updated_at;
 	}
 
