@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.*;
@@ -21,40 +22,57 @@ import org.springframework.security.crypto.bcrypt.*;
 import com.controllers.UserController;
 import com.models.User;
 
+
 @Controller
-//@SessionAttributes("name")
 public class LoginController extends User{
 	
 	
 	@Autowired
 	UserController userController;
+	
 	/**
-	 * show register page
+	 * show login page
 	 */	
 	@RequestMapping("/login")
 	public String login() {	
 		return "auth/login";
 	}
+
+	/**
+	 * show admin login page
+	 */	
+	@RequestMapping("/admin/login")
+	public String adminlogin() {	
+		return "admin/users/login";
+	}
 	/**
 	 * login  handler
 	 */
 	@RequestMapping(value="/loginCheck" , method = RequestMethod.POST)
-	public String loginCheck(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
+	public @ResponseBody Object loginCheck(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
+		AjaxResponse ajaxResponse = new AjaxResponse(); 
 		if (result.hasErrors()) {			
-			model.put("msg", "There was an error");
-			return "home";
+			ajaxResponse.setStatus(false);
+			ajaxResponse.setMsg("There was an error");
+			return ajaxResponse;
 		}
 		List<User> userInfo = getUsersFromDB("WHERE `mobile` = '" + user.getMobile() + "' ");
 		if(!userInfo.isEmpty()) {
 			if(BCrypt.checkpw(user.getPassword(), userInfo.get(0).getPassword())) {
 				userController.addNameToSessionCookie(response, request,"name", userInfo.get(0).getName());
-				model.put("msg", "You logged in ");	
+				ajaxResponse.setMsg("You have successfully logged in.");
+				ajaxResponse.setRedirect("admin/dashboard");
+				ajaxResponse.setStatus(true);
+			} else {
+				ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
+				ajaxResponse.setStatus(false);
 			}
-			// it means we have such user
+			
 		} else {
-			model.put("msg", "Mobile and password is wrong");
+			ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
+			ajaxResponse.setStatus(false);		
 		}		
-		return "home";
+		return ajaxResponse;
 	}
 	
 

@@ -3,6 +3,7 @@
 <#assign style><@spring.url value="/resources/assets/demo/default/base/style.bundle.css" /></#assign>
 <#assign vendorsJs><@spring.url value="/resources/assets/vendors/base/vendors.bundle.js" /></#assign>
 <#assign scripts><@spring.url value="/resources/assets/demo/default/base/scripts.bundle.js" /></#assign>
+
 <#macro body></#macro>
 <#macro footer><@common_page_footer/></#macro>
 <#macro sidebar></#macro>
@@ -11,7 +12,7 @@
     <@common_page_head/>
 </#macro>
 
-<#macro script>
+<#macro otherSripts>
 </#macro>
 
 <#macro layout title='Admin' body_class='' >
@@ -45,6 +46,7 @@
             <!-- end::Scroll Top -->
 
             <@footer/>
+            <@otherSripts/>
         </body>
     </html>
 </#macro>
@@ -68,7 +70,7 @@
     <!--end::Base Styles -->
 </#macro>
 
-<#macro common_page_footer>
+<#macro common_page_footer pageScripts=''>
     <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
         <i class="la la-arrow-up"></i>
     </div>
@@ -77,4 +79,8 @@
     <script src=${vendorsJs} type="text/javascript"></script>
     <script src=${scripts} type="text/javascript"></script>
     <!--end::Base Scripts --> 
+
+    <!--begin::Page Resources -->
+    
+    <!--end::Page Resources -->
 </#macro>

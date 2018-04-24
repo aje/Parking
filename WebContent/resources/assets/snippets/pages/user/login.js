@@ -71,9 +71,8 @@ var SnippetLogin = function() {
 
             form.validate({
                 rules: {
-                    email: {
-                        required: true,
-                        email: true
+                    mobile: {
+                        required: true
                     },
                     password: {
                         required: true
@@ -88,13 +87,19 @@ var SnippetLogin = function() {
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
+                url: '/Parking/loginCheck',
                 success: function(response, status, xhr, $form) {
-                	// similate 2s delay
-                	setTimeout(function() {
+                	
+                	
 	                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-	                    showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
-                    }, 2000);
+	                    if(response.status) {
+	                    	showErrorMsg(form, 'success', response.msg);
+	                    	window.location = "/Parking/admin/dashboard";
+	                    }
+	                    else {
+	                    	showErrorMsg(form, 'danger', response.msg);
+	                    }
+	                    	
                 }
             });
         });

@@ -21,4 +21,11 @@ public class AdminController extends User {
 		return model;
 	}
 
+
+	@RequestMapping("/users")
+	public ModelAndView showUsers(){
+		ModelAndView model = new ModelAndView("admin/users/users");
+		return model;
+	}
+
 }

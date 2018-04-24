@@ -53,6 +53,7 @@
    		<property name="cache"><value>false</value></property>
    		<property name="prefix"><value></value></property>
    		<property name="suffix"><value>.ftl</value></property>
+   		<property name="requestContextAttribute" value="rc"/>
  	</bean>
 
 	<bean id="dataSource"

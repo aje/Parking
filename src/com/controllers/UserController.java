@@ -1,26 +1,20 @@
 package com.controllers;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,6 +33,9 @@ public class UserController extends User {
 	 */
 	@Autowired
 	DataSource dataSource;
+	
+//	@Autowired
+//	private ResourceService service;
 	
 	/**
 	 * get cookie
@@ -69,12 +66,9 @@ public class UserController extends User {
 	/**
 	 * show all users
 	 */
-	@RequestMapping("/users")
-	public ModelAndView showUsers() {
-		
-		ModelAndView model = new ModelAndView("users/usersList");
-		model.addObject("data", getUsersFromDB(""));
-		return model;
+	@RequestMapping("/admin/users/json")
+	public @ResponseBody List<User> showUsers() {
+		return  getUsersFromDB("");
 	}
 
 	/*

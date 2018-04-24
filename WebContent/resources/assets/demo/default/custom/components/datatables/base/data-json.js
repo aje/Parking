@@ -2,7 +2,6 @@
 
 var DatatableJsonRemoteDemo = function () {
 	//== Private functions
-
 	// basic demo
 	var demo = function () {
 
@@ -10,7 +9,7 @@ var DatatableJsonRemoteDemo = function () {
 			// datasource definition
 			data: {
 				type: 'remote',
-				source: 'https://keenthemes.com/metronic/preview/inc/api/datatables/datasource/default.json',
+				source: 'http://localhost:8080/Parking/admin/users/json',
 				pageSize: 10,
 			},
 
@@ -33,66 +32,62 @@ var DatatableJsonRemoteDemo = function () {
 
 			// columns definition
 			columns: [{
-				field: "RecordID",
+				field: "id",
 				title: "#",
 				width: 50,
 				sortable: false,
 				selector: false,
 				textAlign: 'center'
 			}, {
-				field: "OrderID",
-				title: "Order ID"
-			}, {
-				field: "ShipCountry",
-				title: "Ship Country",
-				template: function (row) {
-					// callback function support for column rendering
-					return row.ShipCountry + ' - ' + row.ShipCity;
-				}
-			}, {
-				field: "ShipCity",
-				title: "Ship City",
-				width: 110
-			}, {
-				field: "ShipName",
-				title: "Ship Name",
-				responsive: {visible: 'lg'}
-			}, {
-				field: "ShipAddress",
-				title: "Ship Address",
-				responsive: {visible: 'lg'}
-			}, {
-				field: "ShipDate",
-				title: "Ship Date",
-				type: "date",
-				format: "MM/DD/YYYY"
-			}, {
-				field: "Status",
-				title: "Status",
+				field: "name",
+				title: "Name",
 				// callback function support for column rendering
 				template: function (row) {
 					var status = {
-						1: {'title': 'Pending', 'class': 'm-badge--brand'},
-						2: {'title': 'Delivered', 'class': ' m-badge--metal'},
-						3: {'title': 'Canceled', 'class': ' m-badge--primary'},
-						4: {'title': 'Success', 'class': ' m-badge--success'},
-						5: {'title': 'Info', 'class': ' m-badge--info'},
-						6: {'title': 'Danger', 'class': ' m-badge--danger'},
-						7: {'title': 'Warning', 'class': ' m-badge--warning'}
+						false: {'title': 'Deleted', 'class': 'm-badge--danger'},
+						true: {'title': 'Working', 'class': 'm-badge--success'}
 					};
-					return '<span class="m-badge ' + status[row.Status].class + ' m-badge--wide">' + status[row.Status].title + '</span>';
+					return '<span class="m--font-boldest">' + row.name + '</span><span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';
 				}
 			}, {
-				field: "Type",
+				field: "email",
+				title: "Email",
+				// template: function (row) {
+				// 	// callback function support for column rendering
+				// 	return row.ShipCountry + ' - ' + row.ShipCity;
+				// }
+			}, {
+				field: "plate",
+				title: "Plate Number"
+			}, {
+				field: "mobile",
+				title: "Mobile",
+				responsive: {visible: 'lg'}
+			}, {
+				field: "order_counts",
+				title: "Parked",
+				responsive: {visible: 'lg'}
+			}, {
+				field: "created_at",
+				title: "Sign Up",
+				type: "date",
+				format: "MM/DD/YYYY",
+				// callback function support for column rendering
+				template: function (row) {
+					var d = new Date(row.created_at);
+					return  d.getFullYear()+ '/' + (d.getMonth()+1) + '/' + d.getDate();
+				}
+			}, {
+				field: "type",
 				title: "Type",
 				// callback function support for column rendering
 				template: function (row) {
 					var status = {
-						1: {'title': 'Online', 'state': 'danger'},
-						2: {'title': 'Retail', 'state': 'primary'},
-						3: {'title': 'Direct', 'state': 'accent'}
+						1: {'title': 'User', 'state': 'danger'},
+						2: {'title': 'Operator', 'state': 'primary'},
+						3: {'title': 'Admin', 'state': 'accent'}
 					};
-					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state + '">' + status[row.Type].title + '</span>';
+					return '<span class="m-badge m-badge--' + status[row.type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.type].state + '">' + status[row.type].title + '</span>';
 				}
 			}, {
 				field: "Actions",
@@ -127,14 +122,19 @@ var DatatableJsonRemoteDemo = function () {
 		var query = datatable.getDataSourceQuery();
 
 		$('#m_form_status').on('change', function () {
-			datatable.search($(this).val(), 'Status');
-		}).val(typeof query.Status !== 'undefined' ? query.Status : '');
+			datatable.search($(this).val(), 'status');
+		}).val(typeof query.status !== 'undefined' ? query.status : '');
 
 		$('#m_form_type').on('change', function () {
-			datatable.search($(this).val(), 'Type');
-		}).val(typeof query.Type !== 'undefined' ? query.Type : '');
+			datatable.search($(this).val(), 'type');
+		}).val(typeof query.type !== 'undefined' ? query.type : '');
 
 		$('#m_form_status, #m_form_type').selectpicker();
+		
+		$('#refresh-datatable').on('click', function(event) {
+			event.preventDefault();
+			datatable.ajax.reload();
+		});
 
 	};
 
@@ -148,4 +148,5 @@ var DatatableJsonRemoteDemo = function () {
 
 jQuery(document).ready(function () {
 	DatatableJsonRemoteDemo.init();
+	$('#m_form_status, #m_form_type').selectpicker();
 });
