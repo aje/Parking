@@ -29,7 +29,7 @@ public class RegisterController extends User{
 	 */
 	@RequestMapping("/register")
 	public ModelAndView showRegisterPage() {	
-		ModelAndView model = new ModelAndView("register");
+		ModelAndView model = new ModelAndView("auth/register");
 		return model;
 	}
 	
@@ -40,12 +40,17 @@ public class RegisterController extends User{
 	
 	@RequestMapping(value="/adduser" , method = RequestMethod.POST)
 	public ModelAndView register(@Valid @ModelAttribute("user") User user, BindingResult result,  HttpServletResponse response, HttpServletRequest request) {
-		ModelAndView model = new ModelAndView("register");
-		if (result.hasErrors() || !addUserToDB(user)) {	// add to database	
-			
-			model.addObject("msg", "There was an error");
+		ModelAndView model = new ModelAndView("auth/register");
+		
+		if (result.hasErrors() || (isMobileExist(user.getMobile()) > 0)) {	// add to database
+			if ((isMobileExist(user.getMobile()) > 0)) {
+				model.addObject("msg", "Mobile exist");
+			} else {
+				model.addObject("msg", "There was an error");	
+			}
 			return model;
 		} else {
+			addUserToDB(user);
 			userController.addNameToSessionCookie(response, request,"name", user.getName());
 			model.addObject("msg", "It was successful");
 		}

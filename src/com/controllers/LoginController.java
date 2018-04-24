@@ -33,7 +33,7 @@ public class LoginController extends User{
 	 */	
 	@RequestMapping("/login")
 	public String login() {	
-		return "login";
+		return "auth/login";
 	}
 	/**
 	 * login  handler
@@ -44,20 +44,13 @@ public class LoginController extends User{
 			model.put("msg", "There was an error");
 			return "home";
 		}
-		List<User> userInfo = getUsersFromDB("WHERE `mobile` = " + user.getMobile());
+		List<User> userInfo = getUsersFromDB("WHERE `mobile` = '" + user.getMobile() + "' ");
 		if(!userInfo.isEmpty()) {
 			if(BCrypt.checkpw(user.getPassword(), userInfo.get(0).getPassword())) {
-//				HttpSession session = request.getSession();
-//		        session.setAttribute("name", userInfo.get(0).getName()); // set session
-//				Cookie cookie = new Cookie("mobile", user.getMobile().toString()); // set cookie
-//				response.addCookie(cookie);
-				
 				userController.addNameToSessionCookie(response, request,"name", userInfo.get(0).getName());
 				model.put("msg", "You logged in ");	
 			}
 			// it means we have such user
-//			model.addAttribute("name", user.getMobile()); // set session
-			
 		} else {
 			model.put("msg", "Mobile and password is wrong");
 		}		

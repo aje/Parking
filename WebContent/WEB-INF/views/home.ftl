@@ -5,9 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>Freemarker</h2> <hr>
-
-Behroozina jooooon
+<h2>Freemarker</h2> ${msg!}<hr>
 
 </body>
 </html>

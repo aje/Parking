@@ -22,22 +22,19 @@ public class User {
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	private int id;
-	
+	private int id;	
 	@Size(min=4, max=50) @Pattern(regexp="[^0-9]*")
-	private String name;
-	
-	@Pattern(regexp="[^0-9]*")
-	private String lastname;
+	private String name;	
 	@javax.validation.constraints.Email
 	private String email;
-	@NumberFormat
-	private Long mobile;
+	private String mobile;
 	private String password;
 	private String plate;
 	private Boolean status;
 	private Boolean paid_status;
-	private int order_id;
+	private Lot lot;
+	private Factor last_factor;
+	private int order_counts;
 	private int type;
 	private Date created_at;
 	private Date updated_at;
@@ -52,13 +49,10 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setMobile(Long mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	public void setPassword(String password) {
@@ -66,9 +60,6 @@ public class User {
 	}
 	public void setPaid_status(Boolean paid_status) {
 		this.paid_status = paid_status;
-	}
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
 	}
 	public void setPlate(String plate) {
 		this.plate = plate;
@@ -79,6 +70,15 @@ public class User {
 	public void setType(int type) {
 		this.type = type;
 	}
+	public void setLot(Lot lot){
+		this.lot = lot;
+	};
+	public void setLast_factor(Factor last_factor){
+		this.last_factor = last_factor;
+	};
+	public void setOrder_counts(int order_counts){
+		this.order_counts = order_counts;
+	};
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
@@ -95,13 +95,10 @@ public class User {
 	public String getName() {
 		return name;
 	}
-	public String getLastname() {
-		return lastname;
-	}
 	public String getEmail() {
 		return email;
 	}
-	public Long getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 	public String getPassword() {
@@ -116,12 +113,18 @@ public class User {
 	public Boolean getPaid_status() {
 		return paid_status;
 	}
-	public int getOrder_id() {
-		return order_id;
-	}
 	public String getPlate() {
 		return plate;
 	}
+	public Lot getLot(){
+		return lot;
+	};
+	public Factor getLast_factor(){
+		return last_factor;
+	};
+	public int getOrder_counts(){
+		return order_counts;
+	};
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -136,25 +139,30 @@ public class User {
 	 * insert into database  
 	 */
 	public Boolean addUserToDB(User user) {
-		final String query = "INSERT INTO users " + " (name, lastname, email, mobile, password) VALUES (?, ?, ?, ?, ? ,? )";
-		JdbcTemplate jdb = new JdbcTemplate(dataSource);
-		try {
-			jdb.update(query, new Object[] { user.getName(),  user.getLastname(),  user.getEmail(),  user.getMobile(),  BCrypt.hashpw(user.getPassword(), BCrypt.gensalt())});
-		} catch (Exception e){
-			return false;
-		}
-		
+		final String query = "INSERT INTO users " + " (name,  mobile, email, password) VALUES (?, ?, ?, ? )";
+ 		JdbcTemplate jdb = new JdbcTemplate(dataSource);
+ 		try {
+ 			jdb.update(query, new Object[] { user.getName(),   user.getMobile(), user.getEmail(),  BCrypt.hashpw(user.getPassword(), BCrypt.gensalt())});
+ 		} catch (Exception e){	
+ 			return false;
+ 		}	
 		return true;		
 	}
+
+	public int isMobileExist(String mobile){
+		JdbcTemplate jdb = new JdbcTemplate(dataSource);
+        String sql = "SELECT COUNT(*) FROM users WHERE mobile=?";
+        return jdb.queryForObject(sql, new Object[] { mobile }, int.class);
+    }
 	
 	/**
 	 * edit user from database  
 	 */
 	public Boolean editUserInDB(User user) {
-		final String query = "UPDATE users SET" + " name = ?, lastname = ?, email = ?, mobile = ? WHERE id LIKE "+ user.getId();
+		final String query = "UPDATE users SET" + " name = ?, email = ?, mobile = ? WHERE id LIKE "+ user.getId();
 		JdbcTemplate jdb = new JdbcTemplate(dataSource);
 		try {
-			jdb.update(query, new Object[] { user.getName(),  user.getLastname(),  user.getEmail(),  user.getMobile()});
+			jdb.update(query, new Object[] { user.getName(),  user.getEmail(),  user.getMobile()});
 		} catch (Exception e){
 			return false;
 		}

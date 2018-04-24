@@ -1,5 +1,4 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"] />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,17 +7,17 @@
 </head>
 <body>
 	
-	    
-	<h2>${msg}</h2>Register new user <hr>
+	<@form.errors path="user.*" />
+		
+	 <hr>
+	<h2>${msg!}</h2>Register new user <hr>
 	<strong><form:errors path="user.*" /></strong>
 	
-	<form action="/SpringMVC/adduser" method="post">     <spring:message code='label.name' />  	
-		<input name="name" placeholder="" type="text"> <form:errors path="user.name*" /><br>
-		<input name="lastname" placeholder="Lastname" type="text"> <form:errors path="user.lastname*" /><br>
-		<input name="email" placeholder="Email" type="text"> <form:errors path="user.email*" /><br>
-		<input name="mobile" placeholder="Mobile" type="text"> <form:errors path="user.mobile*" /><br>
-		<input name="password" placeholder="Password" type="text"> <form:errors path="user.password*" /><br>
-		<input name="job" placeholder="Job" type="text"> <form:errors path="user.job*" /><br>
+	<form action="/Parking/adduser" method="post">      	
+		<input name="name" placeholder="name" type="text"><@form.errors path="user.name" /><br>
+		<input name="email" placeholder="Email" type="text"><@form.errors path="user.email" /> <br>
+		<input name="mobile" placeholder="Mobile" type="text"><@form.errors path="user.mobile" /> <br>
+		<input name="password" placeholder="Password" type="text"><br>
 		<input value="submit" type="submit">
 	</form>
 

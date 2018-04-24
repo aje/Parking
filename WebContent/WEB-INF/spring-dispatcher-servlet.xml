@@ -11,11 +11,12 @@
 
 	<context:component-scan base-package="com.controllers" />
 	<mvc:annotation-driven />
+
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/users/"/>
-			<mvc:mapping path="/users/*"/>
+			<mvc:mapping path="/admin/"/>
+			<mvc:mapping path="/admin/*"/>
 			<bean class="com.controllers.AccessHandlerInterceptor" />
 		</mvc:interceptor>
 		
@@ -70,4 +71,8 @@
 	<bean id="LocaleResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="fr" />
 	</bean>
+
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:annotation-driven />
 </beans>
