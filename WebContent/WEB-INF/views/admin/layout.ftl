@@ -4,16 +4,10 @@
 <#assign vendorsJs><@spring.url value="/resources/assets/vendors/base/vendors.bundle.js" /></#assign>
 <#assign scripts><@spring.url value="/resources/assets/demo/default/base/scripts.bundle.js" /></#assign>
 
-<#macro body></#macro>
 <#macro footer><@common_page_footer/></#macro>
-<#macro sidebar></#macro>
+<#macro head><@common_page_head/></#macro>
 
-<#macro head>
-    <@common_page_head/>
-</#macro>
-
-<#macro otherSripts>
-</#macro>
+<#macro otherSripts></#macro>
 
 <#macro layout title='Admin' body_class='' >
     <!DOCTYPE html>
@@ -31,7 +25,7 @@
                     <div class="m-grid__item m-grid__item--fluid m-wrapper">
                         <#include "subheader.ftl">
                         <div class="m-content">
-                            <@body/>
+                            <#nested/>
                         </div>
                     </div>
                 </div>

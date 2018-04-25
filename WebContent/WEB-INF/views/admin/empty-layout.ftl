@@ -4,8 +4,6 @@
 <#assign vendorsJs><@spring.url value="/resources/assets/vendors/base/vendors.bundle.js" /></#assign>
 <#assign scripts><@spring.url value="/resources/assets/demo/default/base/scripts.bundle.js" /></#assign>
 
-
-<#macro body></#macro>
 <#macro otherSripts></#macro>
 
 <#macro layout title='Admin' body_class='' >
@@ -42,7 +40,7 @@
 	<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
-			<@body />
+			<#nested />
 			
 		</div>
 		<!-- end:: Page -->

@@ -6,7 +6,7 @@
 <script src='<@spring.url value="/resources/assets/snippets/pages/user/login.js" />' type="text/javascript"></script>
 </#macro>
 
-<#macro body>
+<@layout  title='Login'>
 <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-1" id="m_login" style="background-image: url(${imgPath}bg/bg-1.jpg);">
 	<div class="m-grid__item m-grid__item--fluid m-login__wrapper">
 		<div class="m-login__container">
@@ -134,7 +134,4 @@
 		</div>
 	</div>
 </div>
-</#macro>
-
-
-<@layout  title='Login' />
+</@layout>

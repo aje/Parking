@@ -1,9 +1,7 @@
 <#include "layout.ftl">
 
-<#macro body>
+<@layout  title='Dashboard'>
 <div class="row">
 salam
 </div>
-</#macro>
-
-<@layout  title='Dashboard' />
+</@layout>

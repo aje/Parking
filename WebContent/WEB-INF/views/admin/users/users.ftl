@@ -6,7 +6,7 @@
 <script src=${pageScript} type="text/javascript"></script>
 </#macro>
 
-<#macro body>
+<@layout  title='Users' > 
 <div class="m-portlet m-portlet--mobile">
 	<div class="m-portlet__head">
 		<div class="m-portlet__head-caption">
@@ -184,6 +184,4 @@
 		<!--end: Datatable -->
 	</div>
 </div>
-</#macro>
-
-<@layout  title='Users' />
+</@layout>
