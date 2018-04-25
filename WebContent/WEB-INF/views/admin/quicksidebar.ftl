@@ -58,7 +58,7 @@
 								<div class="m-messenger__wrapper">
 									<div class="m-messenger__message m-messenger__message--in">
 										<div class="m-messenger__message-pic">
-											<img src="assets/app/media/img//users/user3.jpg" alt=""/>
+											<img src="${imgPath}/users/user3.jpg" alt=""/>
 										</div>
 										<div class="m-messenger__message-body">
 											<div class="m-messenger__message-arrow"></div>

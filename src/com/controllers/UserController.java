@@ -48,20 +48,6 @@ public class UserController extends User {
 		}
 		return null;
 	}
-	
-	
-	public boolean addNameToSessionCookie(HttpServletResponse response, HttpServletRequest request, String name, String value) {
-		
-		HttpSession session = request.getSession();
-        session.setAttribute(name, value); // set session
-		Cookie cookie = new Cookie(name, value); // set cookie
-		response.addCookie(cookie);
-		return true;
-	}
-	
-
-
-
 
 	/**
 	 * show all users

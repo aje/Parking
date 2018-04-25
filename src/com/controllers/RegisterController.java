@@ -21,9 +21,6 @@ import com.models.User;
 @Controller
 //@SessionAttributes("name")
 public class RegisterController extends User{
-	
-	@Autowired
-	UserController userController;
 	/**
 	 * show register page
 	 */
@@ -51,7 +48,7 @@ public class RegisterController extends User{
 			return model;
 		} else {
 			addUserToDB(user);
-			userController.addNameToSessionCookie(response, request,"name", user.getName());
+//			userController.addNameToSessionCookie(response, request,"name", user.getName());
 			model.addObject("msg", "It was successful");
 		}
 			

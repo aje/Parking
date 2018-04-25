@@ -1,5 +1,5 @@
 <#include "../empty-layout.ftl">
-<#assign imgPath><@spring.url value="/resources/assets/app/media/img/" /></#assign>
+
 
 
 <#macro otherSripts>
@@ -33,7 +33,7 @@
 					<div class="row m-login__form-sub">
 						<div class="col m--align-left m-login__form-left">
 							<label class="m-checkbox  m-checkbox--light">
-								<input type="checkbox" name="remember">
+								<input type="checkbox" checked value="true" name="remember">
 								Remember me
 								<span></span>
 							</label>

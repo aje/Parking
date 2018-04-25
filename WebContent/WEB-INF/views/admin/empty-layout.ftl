@@ -1,4 +1,5 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]/>
+<#assign imgPath><@spring.url value="/resources/assets/app/media/img/" /></#assign>
 <#assign vendorsCSS><@spring.url value="/resources/assets/vendors/base/vendors.bundle.css" /></#assign>
 <#assign style><@spring.url value="/resources/assets/demo/default/base/style.bundle.css" /></#assign>
 <#assign vendorsJs><@spring.url value="/resources/assets/vendors/base/vendors.bundle.js" /></#assign>

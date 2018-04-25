@@ -30,6 +30,8 @@ public class User {
 	private String mobile;
 	private String password;
 	private String plate;
+	private int remember;
+	private String avatar;
 	private Boolean status;
 	private Boolean paid_status;
 	private Lot lot;
@@ -63,6 +65,12 @@ public class User {
 	}
 	public void setPlate(String plate) {
 		this.plate = plate;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	public void setRmember(int remember) {
+		this.remember = remember;
 	}
 	public void setStatus(Boolean status) {
 		this.status = status;
@@ -104,6 +112,12 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	public int getRemember() {
+		return remember;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
 	public Boolean getStatus() {
 		return status;
 	}
@@ -131,9 +145,6 @@ public class User {
 	public Date getUpdated_at() {
 		return updated_at;
 	}
-
-
-
 	
 	/**
 	 * insert into database  
