@@ -29,7 +29,7 @@ public class User {
 	private String mobile;
 	private String password;
 	private String plate;
-	private int remember;
+	private String remember_token;
 	private String avatar;
 	private Boolean status;
 	private Boolean paid_status;
@@ -68,8 +68,8 @@ public class User {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-	public void setRmember(int remember) {
-		this.remember = remember;
+	public void setRmember(String remember_token) {
+		this.remember_token = remember_token;
 	}
 	public void setStatus(Boolean status) {
 		this.status = status;
@@ -111,8 +111,8 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	public int getRemember() {
-		return remember;
+	public String getRemember() {
+		return remember_token;
 	}
 	public String getAvatar() {
 		return avatar;

@@ -55,19 +55,20 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 			response.sendRedirect(request.getContextPath() + "/admin/dashboard");								// 2 - send to dashboard 
 			return false;
 		} else if (!alreadyLoggedIn && !loginPageRequested) {
-//			String remember = getHashFromCookie(request); 														// 3 - get remember cookie
-//			if(remember != null) {
-//				User user = new User();
-//				List<User> userInfo = user.getUsersFromDB("WHERE `remember_token` = '" + getHashFromCookie(request)+ "' ");
-//				if(!userInfo.isEmpty())
-//				if (BCrypt.checkpw(remember, userInfo.get(0).getRemember())) { 									// 4 - check if remember cookie exist in database
-//					LoginController lg = new LoginController();
-//					lg.setUserSession(request, "user_id",  String.valueOf(userInfo.get(0).getId())); 			// 5 - set session 
-//					response.sendRedirect(request.getContextPath() + "/admin/dashboard"); 						// 6 - send to dashboard
-//					return false;
-//				}
-//			}
+			String remember = getHashFromCookie(request); 														// 3 - get remember cookie
+			if(remember != null) {
+				User user = new User();
+				List<User> userInfo = userDao.getUser("WHERE `remember_token` = '" + getHashFromCookie(request)+ "' ");
+				if(!userInfo.isEmpty())
+				if (BCrypt.checkpw(remember, userInfo.get(0).getRemember())) { 									// 4 - check if remember cookie exist in database
+					LoginController lg = new LoginController();
+					lg.setUserSession(request, "user_id",  String.valueOf(userInfo.get(0).getId())); 			// 5 - set session 
+					response.sendRedirect(request.getContextPath() + "/admin/dashboard"); 						// 6 - send to dashboard
+					return false;
+				}
+			}
 //			return true;
+			
 			response.sendRedirect(request.getContextPath() + "/admin/login");																// 7 - send to login
 			return false;
 		}
@@ -96,6 +97,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 //		user.getUsersFromDB(" WHERE id like " + request.getSession().getAttribute("user_id"));
 //		ApplicationContext context = new ClassPathXmlApplicationContext("user-module.xml");
 //        UserDao userDAO = (UserDao) context.getBean("userDao");
+		if (request.getSession().getAttribute("user_id") != null)
 		modelAndView.addObject("user" , userDao.getOne(Integer.parseInt(request.getSession().getAttribute("user_id").toString())));
 //		System.out.println(userDao.getOne(Integer.parseInt(request.getSession().getAttribute("user_id").toString())));
 	}
