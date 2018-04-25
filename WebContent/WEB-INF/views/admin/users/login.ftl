@@ -33,7 +33,7 @@
 					<div class="row m-login__form-sub">
 						<div class="col m--align-left m-login__form-left">
 							<label class="m-checkbox  m-checkbox--light">
-								<input type="checkbox" checked value="true" name="remember">
+								<input type="checkbox" checked value="true" name="remember_me">
 								Remember me
 								<span></span>
 							</label>

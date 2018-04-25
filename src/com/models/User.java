@@ -182,6 +182,22 @@ public class User {
 	}
 	
 	/**
+	 * change user database  
+	 */
+	public Boolean changeUserFromDB(int id, String hash) {
+		final String query = "UPDATE users SET" + " remember_token = ? WHERE id LIKE ?";
+		JdbcTemplate jdb = new JdbcTemplate(dataSource);
+		try {
+			jdb.update(query, new Object[] { hash ,  id });
+			
+		} catch (Exception e){
+			return false;
+		}
+		
+		return true;		
+	}
+	
+	/**
 	 * delete user database  
 	 */
 	public Boolean deleteUserFromDB(int id, int flag) {

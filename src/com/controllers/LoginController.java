@@ -70,7 +70,7 @@ public class LoginController extends User{
 	@RequestMapping(value="/loginCheck" , method = RequestMethod.POST)
 	public @ResponseBody Object loginCheck(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
 		AjaxResponse ajaxResponse = new AjaxResponse(); 
-		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember"));
+		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember_me"));
 		
 		if (result.hasErrors()) {																		// form validation
 			ajaxResponse.setStatus(false);
@@ -81,9 +81,10 @@ public class LoginController extends User{
 		if(!userInfo.isEmpty()) { 																		// 3- check if user exists
 			if(BCrypt.checkpw(user.getPassword(), userInfo.get(0).getPassword())) { 					// 3- check password 
 				setUserSession(request,"user_id", String.valueOf(userInfo.get(0).getId())); 			// 4- set user_id to session 
-				if(request.getParameter("remember") != null) { 
-					System.out.println("ta inja");
-					setUserCookie(response, "remember", BCrypt.hashpw(userInfo.get(0).getName() + "hehe", BCrypt.gensalt())); // 6- set cookie
+				if(request.getParameter("remember_me") != null) {
+					String hashRemember = BCrypt.hashpw(userInfo.get(0).getName() + "hehe", BCrypt.gensalt());
+					setUserCookie(response, "remember", hashRemember); 									// 6- set cookie
+					changeUserFromDB(userInfo.get(0).getId(), hashRemember);							// save cookie hash to database
 				}
 				ajaxResponse.setMsg("You have successfully logged in.");
 				ajaxResponse.setRedirect("admin/dashboard");											// 8- send redirect
@@ -108,13 +109,12 @@ public class LoginController extends User{
 	 */	
 	@RequestMapping("/logout")
 	public String logout(HttpServletResponse response, ModelMap model, HttpServletRequest request, SessionStatus sessionStatus) throws IOException {	
-		Cookie cookie = new Cookie("mobile", null);
+		Cookie cookie = new Cookie("remember", null);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 		sessionStatus.setComplete();
 		HttpSession session = request.getSession();
 		session.removeAttribute("user_id");
-//        session.setAttribute("name", null);
 		response.sendRedirect(request.getContextPath() + "/admin/login");
 		return null;
 	}
