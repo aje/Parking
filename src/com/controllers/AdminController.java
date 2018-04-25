@@ -1,5 +1,7 @@
 package com.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ public class AdminController extends User {
 
 	@RequestMapping("/dashboard")
 	public ModelAndView showDashboard(){
+//		String[] para = {"name" , "fsdf", "esm", "sdfsfd"};
+//		saveDB(10, para, para);
 		ModelAndView model = new ModelAndView("admin/dashboard");
 		return model;
 	}

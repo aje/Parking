@@ -190,10 +190,32 @@ public class User {
 		try {
 			jdb.update(query, new Object[] { hash ,  id });
 			
+			
 		} catch (Exception e){
 			return false;
 		}
-		
+		return true;		
+	}
+	
+	/**
+	 * change user database  
+	 */
+	public Boolean saveDB(int id, String[] para, String[] values) {
+		String paras = "";
+		for (int i=0; i< para.length; i++) {
+			paras += para[i] + "= \"" + values[i] + "\"" ;
+			if (i < para.length - 1)
+				paras += ", ";	
+		}
+		System.out.println(paras);
+		final String query = "UPDATE users SET "+paras+" WHERE id LIKE " + id;
+		JdbcTemplate jdb = new JdbcTemplate(dataSource);
+//		try {
+			jdb.update(query);
+			
+//		} catch (Exception e){
+//			return false;
+//		}
 		return true;		
 	}
 	

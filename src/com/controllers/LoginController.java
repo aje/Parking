@@ -70,7 +70,7 @@ public class LoginController extends User{
 	@RequestMapping(value="/loginCheck" , method = RequestMethod.POST)
 	public @ResponseBody Object loginCheck(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
 		AjaxResponse ajaxResponse = new AjaxResponse(); 
-		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember_me"));
+//		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember_me"));
 		
 		if (result.hasErrors()) {																		// form validation
 			ajaxResponse.setStatus(false);
@@ -83,8 +83,9 @@ public class LoginController extends User{
 				setUserSession(request,"user_id", String.valueOf(userInfo.get(0).getId())); 			// 4- set user_id to session 
 				if(request.getParameter("remember_me") != null) {
 					String hashRemember = BCrypt.hashpw(userInfo.get(0).getName() + "hehe", BCrypt.gensalt());
-					setUserCookie(response, "remember", hashRemember); 									// 6- set cookie
-					changeUserFromDB(userInfo.get(0).getId(), hashRemember);							// save cookie hash to database
+					setUserCookie(response, "remember", hashRemember);
+					saveDB(userInfo.get(0).getId(), new String[] {"remember_token"}, new String[]  {hashRemember});
+//					changeUserFromDB(userInfo.get(0).getId(), hashRemember);							// save cookie hash to database
 				}
 				ajaxResponse.setMsg("You have successfully logged in.");
 				ajaxResponse.setRedirect("admin/dashboard");											// 8- send redirect
