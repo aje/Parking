@@ -2,6 +2,6 @@
 
 <@layout  title='Dashboard'>
 <div class="row">
-salam
+salam ${user.name!}
 </div>
 </@layout>

@@ -10,11 +10,15 @@ import javax.sql.DataSource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -24,8 +28,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  *
  */
 public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
-
-	
+    @Autowired
+    UserDao userDao;
+    
 	private String getHashFromCookie(HttpServletRequest request) {
 		for(Cookie cookie : request.getCookies()) {
 			if (cookie.getName().equals("remember")) {
@@ -77,7 +82,23 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 //			return false;
 //		}
 		return true;	
-	}	 
+	}	
+	
+	
+	@Override
+	public void postHandle(
+	  HttpServletRequest request, 
+	  HttpServletResponse response,
+	  Object handler, 
+	  ModelAndView modelAndView) throws Exception {
+		User user = new User();
+//		int id = request.getSession().getAttribute("user_id");
+//		user.getUsersFromDB(" WHERE id like " + request.getSession().getAttribute("user_id"));
+//		ApplicationContext context = new ClassPathXmlApplicationContext("user-module.xml");
+//        UserDao userDAO = (UserDao) context.getBean("userDao");
+		modelAndView.addObject("user" , userDao.getOne(Integer.parseInt(request.getSession().getAttribute("user_id").toString())));
+//		System.out.println(userDao.getOne(Integer.parseInt(request.getSession().getAttribute("user_id").toString())));
+	}
 		
 
 }

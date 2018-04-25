@@ -944,10 +944,10 @@
 												</div>
 												<div class="m-card-user__details">
 													<span class="m-card-user__name m--font-weight-500">
-														Mark Andre
+														${user.name!}
 													</span>
 													<a href="" class="m-card-user__email m--font-weight-300 m-link">
-														mark.andre@gmail.com
+														${user.mobile!}
 													</a>
 												</div>
 											</div>

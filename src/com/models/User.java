@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.*;
@@ -210,12 +209,12 @@ public class User {
 		System.out.println(paras);
 		final String query = "UPDATE users SET "+paras+" WHERE id LIKE " + id;
 		JdbcTemplate jdb = new JdbcTemplate(dataSource);
-//		try {
+		try {
 			jdb.update(query);
 			
-//		} catch (Exception e){
-//			return false;
-//		}
+		} catch (Exception e){
+			return false;
+		}
 		return true;		
 	}
 	
