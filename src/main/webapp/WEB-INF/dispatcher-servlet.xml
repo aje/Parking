@@ -3,13 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     	http://www.springframework.org/schema/beans/spring-beans.xsd
     	http://www.springframework.org/schema/context
     	http://www.springframework.org/schema/context/spring-context.xsd
     	http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- Step 3: Add support for component scanning -->
 	<context:component-scan base-package="com.controllers" />
@@ -20,7 +19,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/admin/"/>
-            <mvc:mapping path="/admin/*"/>
+            <mvc:mapping path="/admin/**"/>
             <bean class="com.controllers.AccessHandlerInterceptor" />
         </mvc:interceptor>
 
@@ -31,23 +30,12 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <security:http>
-        <!--<security:intercept-url pattern="/admin/**" access="hasAnyAuthority('ADMIN')" />-->
-        <!--<security:intercept-url pattern="/user/**" access="hasAnyAuthority('USER')" />-->
-        <security:intercept-url pattern="/**" access="permitAll()" />
-        <security:form-login login-page="/login" />
-        <security:logout />
-    </security:http>
 
     <mvc:resources mapping="/resources/**" location="resources" />
     <mvc:annotation-driven />
 
 	<!-- Step 5: Define Spring MVC view resolver -->
-	<!--<bean-->
-		<!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-		<!--<property name="prefix" value="/WEB-INF/views/" />-->
-		<!--<property name="suffix" value=".jsp" />-->
-	<!--</bean>-->
+
 
 	<bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
