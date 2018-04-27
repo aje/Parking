@@ -30,10 +30,10 @@ public class User {
 	private int type;
 	private Date created_at;
 	private Date updated_at;
-	
-	
+
+
 	/**
-	 * setters  
+	 * setters
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -83,7 +83,7 @@ public class User {
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-	
+
 	/**
 	 * getters  
 	 */
