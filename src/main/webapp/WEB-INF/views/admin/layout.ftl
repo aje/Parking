@@ -1,5 +1,7 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]/>
 <#assign imgPath><@spring.url value="/resources/resources/assets/app/media/img/" /></#assign>
+<#assign jsPath><@spring.url value="/resources/resources/assets/app/js/" /></#assign>
+<#assign cssPath><@spring.url value="/resources/resources/assets/app/css/" /></#assign>
 <#assign vendorsCSS><@spring.url value="/resources/resources/assets/vendors/base/vendors.bundle.css" /></#assign>
 <#assign style><@spring.url value="/resources/resources/assets/demo/default/base/style.bundle.css" /></#assign>
 <#assign vendorsJs><@spring.url value="/resources/resources/assets/vendors/base/vendors.bundle.js" /></#assign>
@@ -17,7 +19,7 @@
             <@head/>
             <title>${title}</title>
         </head>
-        <body class='${body_class} m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default'>
+        <body class='${body_class} m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default'>
             <div class="m-grid m-grid--hor m-grid--root m-page">
                 <#include "header.ftl">
                 <!-- begin:: Page -->

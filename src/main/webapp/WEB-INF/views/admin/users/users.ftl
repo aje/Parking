@@ -1,5 +1,5 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]/>
-<#assign pageScript><@spring.url value="/resources/assets/demo/default/custom/components/datatables/base/data-json.js" /></#assign>
+<#assign pageScript><@spring.url value="/resources/resources/assets/demo/default/custom/components/datatables/base/data-json.js" /></#assign>
 <#include "../layout.ftl">
 
 <#macro otherSripts>

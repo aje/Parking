@@ -7,7 +7,7 @@
                 <div class="m-stack m-stack--ver m-stack--general">
                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
                         <a href="index.html" class="m-brand__logo-wrapper">
-                            <img alt="" src="${imgPath}/logo/logo_default_dark.png"/>
+                            <img alt="" src="${imgPath}logo/logo_compact.png"/>
                         </a>
                     </div>
                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -978,15 +978,17 @@
                                              style="background: url(${imgPath}/misc/user_profile_bg.jpg); background-size: cover;">
                                             <div class="m-card-user m-card-user--skin-dark">
                                                 <div class="m-card-user__pic">
-                                                    <img src="${imgPath}/users/user4.jpg"
+                                                    <img src="${imgPath!}/users/user4.jpg"
                                                          class="m--img-rounded m--marginless" alt=""/>
                                                 </div>
                                                 <div class="m-card-user__details">
+                                                    <#if user??>
 													<span class="m-card-user__name m--font-weight-500">
                                                     ${user.name!}
                                                     </span>
                                                     <a href="" class="m-card-user__email m--font-weight-300 m-link">
                                                     ${user.mobile!}
+                                                    </#if>
                                                     </a>
                                                 </div>
                                             </div>

@@ -37,7 +37,7 @@ public class LoginController {
 	 */	
 	@RequestMapping("/login")
 	public String login() {	
-		return "/auth/login";
+		return "/admin/users/login";
 	}
 
 	/**

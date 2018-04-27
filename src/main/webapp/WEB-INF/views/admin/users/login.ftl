@@ -3,7 +3,7 @@
 
 
 <#macro otherSripts>
-<script src='<@spring.url value="/resources/resources/assets/snippets/pages/user/login.js" />' type="text/javascript"></script>
+<script src='<@spring.url value="${jsPath}login.js" />' type="text/javascript"></script>
 </#macro>
 
 <@layout  title='Login'>
@@ -12,7 +12,7 @@
 		<div class="m-login__container">
 			<div class="m-login__logo">
 				<a href="#">
-					<img src="${imgPath}/logos/logo-1.png">
+					<img src="${imgPath}logos/logo-1.png">
 				</a>
 			</div>
 			<div class="m-login__signin">
@@ -24,6 +24,7 @@
 				</div>
 				<form class="m-login__form m-form" action="/loginCheck" method="post">
 					<div class="form-group m-form__group">
+                        <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
 						<input class="form-control m-input" type="text" placeholder="Mobile" name="mobile" autocomplete="off">
 						<div id="mobile-error" class="form-control-feedback">${mobileError!}</div>
 					</div>

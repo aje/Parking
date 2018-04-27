@@ -1,6 +1,7 @@
-package com.controllers;
+package com.interceptors;
 
 
+import com.controllers.UserDao;
 import com.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
     @Autowired
-    UserDao userDao;
+	UserDao userDao;
     
 	private String getHashFromCookie(HttpServletRequest request) {
 		for(Cookie cookie : request.getCookies()) {
@@ -32,13 +33,12 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object handler) throws Exception {
-		RequestMapping rm = ((HandlerMethod) handler).getMethodAnnotation(
-				RequestMapping.class);
+		RequestMapping rm = ((HandlerMethod) handler).getMethodAnnotation(RequestMapping.class);
 
 
 		boolean alreadyLoggedIn = request.getSession().getAttribute("user_id") != null; 						// 1 - check session if user is already login via session
 		boolean loginPageRequested = rm != null && rm.value().length > 0
-				&& "/admin/login".equals(rm.value()[0]); 									// check request page if it's login page or not
+				&& "/login".equals(rm.value()[0]); 									// check request page if it's login page or not
 //		System.out.println(alreadyLoggedIn);
 //		System.out.println((int) request.getSession().getAttribute("user_id"));
 
@@ -50,7 +50,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 		else if (!alreadyLoggedIn && !loginPageRequested) {														// if user is not log in via session and not it's not login page
 //			String remember = getHashFromCookie(request); 														// 3 - get remember cookie and check if it's not empty
 //			if(remember != null) {
-//			System.out.println("this");
+			System.out.println("this");
 //				List<User> userInfo = userDao.getUser("WHERE `remember_token` = '" +
 //														getHashFromCookie(request)+ "' ");
 //				if(!userInfo.isEmpty())
@@ -62,7 +62,7 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 //				}
 //			}
 
-//			response.sendRedirect(request.getContextPath() + "/admin/login");									// 7 - send to login
+			response.sendRedirect(request.getContextPath() + "/login");									// 7 - send to login
 			return false;
 		}
 
@@ -87,10 +87,6 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 	  HttpServletResponse response,
 	  Object handler, 
 	  ModelAndView modelAndView) throws Exception {
-//		int id = request.getSession().getAttribute("user_id");
-//		user.getUsersFromDB(" WHERE id like " + request.getSession().getAttribute("user_id"));
-//		ApplicationContext context = new ClassPathXmlApplicationContext("user-module.xml");
-//        UserDao userDAO = (UserDao) context.getBean("userDao");
 		if (request.getSession().getAttribute("user_id") != null)
 		modelAndView.addObject("user" , userDao.getOne(Integer.parseInt(request.getSession().getAttribute("user_id").toString())));
 //		System.out.println(userDao.getOne(Integer.parseInt(request.getSession().getAttribute("user_id").toString())));

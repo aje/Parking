@@ -5,24 +5,44 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
-    <http>
-        <intercept-url pattern="/admin/**" access="hasAnyAuthority('ADMIN')" />
-        <!--<security:intercept-url pattern="/user/**" access="hasAnyAuthority('USER')" />-->
-        <intercept-url pattern="/**" access="permitAll()" />
-        <form-login login-page="/login" />
-        <logout />
-    </http>
 
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <!-- Password is prefixed with {noop} to indicate to DelegatingPasswordEncoder that
-                NoOpPasswordEncoder should be used. This is not safe for production, but makes reading
-                in samples easier. Normally passwords should be hashed using BCrypt -->
-                <user name="jimi" password="123" authorities="ROLE_USER, ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
+
+    <!--<http pattern="/resources/**" security="none"/>-->
+
+    <!--<http>-->
+        <!--<intercept-url pattern="/admin/**" access="hasAnyAuthority('ADMIN')" />-->
+        <!--<intercept-url pattern="/user/**" access="hasAnyAuthority('USER')" />-->
+        <!--<intercept-url pattern="/**" access="permitAll()" />-->
+        <!--<form-login login-page="/login" login-processing-url="/loginCheck" username-parameter="mobile"/>-->
+        <!--<logout />-->
+        <!--&lt;!&ndash;<csrf disabled="true"/>&ndash;&gt;-->
+    <!--</http>-->
+
+    <!--<beans:bean name="bcryptEncoder"-->
+                <!--class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
+
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+            <!--<password-encoder ref="bcryptEncoder"/>-->
+            <!--<jdbc-user-service data-source-ref="dataSource"  users-by-username-query="SELECT mobile, password, status FROM users WHERE mobile = ? "-->
+                               <!--authorities-by-username-query="select mobile, role from users WHERE mobile = ?" />-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
+
+    <!--<beans:bean id="dataSource"-->
+              <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
+        <!--<beans:property name="url" value="jdbc:mysql://localhost:3306/parking" />-->
+        <!--<beans:property name="username" value="root" />-->
+        <!--<beans:property name="password" value="" />-->
+    <!--</beans:bean>-->
+
+    <!--<beans:bean  id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<beans:property name="dataSource" ref="dataSource" />-->
+    <!--</beans:bean>-->
+
 </beans:beans>
+
 
 

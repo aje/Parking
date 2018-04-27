@@ -13,20 +13,17 @@
 	<!-- Step 3: Add support for component scanning -->
 	<context:component-scan base-package="com.controllers" />
 
+
+
 	<!-- Step 4: Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven/>
 
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/admin/"/>
-            <mvc:mapping path="/admin/**"/>
-            <bean class="com.controllers.AccessHandlerInterceptor" />
-        </mvc:interceptor>
-
-        <mvc:interceptor>
             <mvc:mapping path="/login"/>
-            <mvc:mapping path="/register"/>
-            <bean class="com.interceptors.LoginHandlerInterceptor" />
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.interceptors.AccessHandlerInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -47,7 +44,7 @@
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/views"/>
     </bean>
-<!---->
+
     <bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="order" value="1"/>
         <property name="cache" value="false"/>
@@ -68,11 +65,6 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
-
-
-
-
 
 </beans>
 
