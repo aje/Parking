@@ -1,139 +1,235 @@
 package com.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.sql.DataSource;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Entity
+@Table(name = "users")
 public class User {
 
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	private int id;	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
 	@Size(min=4, max=50) @Pattern(regexp="[^0-9]*")
-	private String name;	
+	private String name;
+
+	@NotNull
+	private String mobile;
+
+	@Column(name = "confirm_mobile")
+	private int confirmMobile;
+
+	@Column(name = "type", insertable=false)
+	private int type;
 	@javax.validation.constraints.Email
 	private String email;
-	private String mobile;
 	private String password;
-	private String plate;
-	private String remember_token;
-	private String avatar;
-	private Boolean status;
-	private Boolean paid_status;
-	private Lot lot;
-	private Factor last_factor;
-	private int order_counts;
-	private int type;
-	private Date created_at;
-	private Date updated_at;
+
+	@Column(name = "plate_number")
+	private String plateNumber;
+
+	@Column(name = "last_factor", insertable = false)
+	private int lastFactor;
+
+	@Column(name = "paid_status", insertable=false)
+	private int paidStatus;
+
+	@Column(name = "order_count", insertable = false)
+	private int orderCount;
+
+	@Column(name = "status", insertable=false)
+	private int status;
 
 
-	/**
-	 * setters
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public void setPaid_status(Boolean paid_status) {
-		this.paid_status = paid_status;
-	}
-	public void setPlate(String plate) {
-		this.plate = plate;
-	}
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-	public void setRmember(String remember_token) {
-		this.remember_token = remember_token;
-	}
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-	public void setType(int type) {
-		this.type = type;
-	}
-	public void setLot(Lot lot){
-		this.lot = lot;
-	};
-	public void setLast_factor(Factor last_factor){
-		this.last_factor = last_factor;
-	};
-	public void setOrder_counts(int order_counts){
-		this.order_counts = order_counts;
-	};
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
-	}
+	@Column(name = "created_at", updatable = false, insertable=false)
+	private Date createdAt;
 
-	/**
-	 * getters  
-	 */
+
+	@Column(name = "updated_at", updatable = false, insertable = false)
+	private Date updatedAt;
+
+	@Column(name = "avatar_link")
+	private String avatarLink;
+
+	@Column(name = "remember_token")
+	private String rememberToken;
+	private String role;
+	private int lot;
+
 	public int getId() {
 		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
-	public String getEmail() {
-		return email;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 	public String getMobile() {
 		return mobile;
 	}
-	public String getPassword() {
-		return password;
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
-	public String getRemember() {
-		return remember_token;
+
+	public int getConfirmMobile() {
+		return confirmMobile;
 	}
-	public String getAvatar() {
-		return avatar;
+
+	public void setConfirmMobile(int confirmMobile) {
+		this.confirmMobile = confirmMobile;
 	}
-	public Boolean getStatus() {
-		return status;
-	}
+
 	public int getType() {
 		return type;
 	}
-	public Boolean getPaid_status() {
-		return paid_status;
+
+	public void setType(int type) {
+		this.type = type;
 	}
-	public String getPlate() {
-		return plate;
+
+	public String getEmail() {
+		return email;
 	}
-	public Lot getLot(){
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPlateNumber() {
+		return plateNumber;
+	}
+
+	public void setPlateNumber(String plateNumber) {
+		this.plateNumber = plateNumber;
+	}
+
+	public int getLastFactor() {
+		return lastFactor;
+	}
+
+	public void setLastFactor(int lastFactor) {
+		this.lastFactor = lastFactor;
+	}
+
+	public int getPaidStatus() {
+		return paidStatus;
+	}
+
+	public void setPaidStatus(int paidStatus) {
+		this.paidStatus = paidStatus;
+	}
+
+	public int getOrderCount() {
+		return orderCount;
+	}
+
+	public void setOrderCount(int orderCount) {
+		this.orderCount = orderCount;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getAvatarLink() {
+		return avatarLink;
+	}
+
+	public void setAvatarLink(String avatarLink) {
+		this.avatarLink = avatarLink;
+	}
+
+	public String getRememberToken() {
+		return rememberToken;
+	}
+
+	public void setRememberToken(String rememberToken) {
+		this.rememberToken = rememberToken;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public int getLot() {
 		return lot;
-	};
-	public Factor getLast_factor(){
-		return last_factor;
-	};
-	public int getOrder_counts(){
-		return order_counts;
-	};
-	public Date getCreated_at() {
-		return created_at;
 	}
-	public Date getUpdated_at() {
-		return updated_at;
+
+	public void setLot(int lot) {
+		this.lot = lot;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", mobile='" + mobile + '\'' +
+				", confirmMobile=" + confirmMobile +
+				", type=" + type +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", plateNumber='" + plateNumber + '\'' +
+				", lastFactor=" + lastFactor +
+				", paidStatus=" + paidStatus +
+				", orderCount=" + orderCount +
+				", status=" + status +
+				", createdAt=" + createdAt +
+				", updatedAt=" + updatedAt +
+				", avatarLink='" + avatarLink + '\'' +
+				", rememberToken='" + rememberToken + '\'' +
+				", role='" + role + '\'' +
+				", lot=" + lot +
+				'}';
+	}
 }

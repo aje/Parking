@@ -1,9 +1,6 @@
 package com.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "lora")
@@ -22,28 +19,14 @@ public class Lora {
 	}
 
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	@Column(name = "type")
 	private int type;
-
-	@Column(name = "status")
 	private int status;
-
-	@Column(name = "serial_number")
 	private int serial_number;
-
-	@Column(name = "number")
 	private int number;
-
-	@Column(name = "lot_id")
 	private int lot_id;
-
-	@Column(name = "created_at")
 	private int created_at;
-
-	@Column(name = "updated_at")
 	private int updated_at;
 
 	public int getId() {

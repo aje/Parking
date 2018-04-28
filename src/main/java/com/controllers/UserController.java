@@ -1,6 +1,8 @@
 package com.controllers;
 
+import com.dao.UserDao;
 import com.models.User;
+import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,26 +22,30 @@ import java.util.List;
 @SessionAttributes("name")
 public class UserController extends User {
 	@Autowired
-	UserDao userDao;
-	/**
-	 * attribues
-	 */
+	private UserDao userDao;
+
+	@Autowired
+	private UserService userService;
+
 	@Autowired
 	DataSource dataSource;
-	
-//	@Autowired
-//	private ResourceService service;
-	
-	/**
-	 * get cookie
-	 */
-	public String getUsernameFromCookie(HttpServletRequest request) {
-		for(Cookie cookie : request.getCookies()) {
-			if (cookie.getName().equals("mobile")) {
-				return cookie.getValue();
-			}
-		}
-		return null;
+
+//	/**
+//	 * get cookie
+//	 */
+//	private String getUsernameFromCookie(HttpServletRequest request) {
+//		for(Cookie cookie : request.getCookies()) {
+//			if (cookie.getName().equals("mobile")) {
+//				return cookie.getValue();
+//			}
+//		}
+//		return null;
+//	}
+
+	@RequestMapping(value = "/users/add", method = RequestMethod.POST)
+	public String add(@ModelAttribute("user") User u) {
+		this.userService.addUser(u);
+		return "/admin/users/done";
 	}
 
 	/**

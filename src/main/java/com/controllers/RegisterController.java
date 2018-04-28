@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.dao.UserDao;
 import com.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class RegisterController extends User{
 			}
 			return model;
 		} else {
-			userDao.addUserToDB(user);
+			userDao.add(user);
 //			userController.addNameToSessionCookie(response, request,"name", user.getName());
 			model.addObject("msg", "It was successful");
 		}

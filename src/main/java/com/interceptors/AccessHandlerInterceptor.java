@@ -1,14 +1,14 @@
 package com.interceptors;
 
 
-import com.controllers.UserDao;
-import com.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.dao.UserDao;
+import com.models.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
-    @Autowired
-	UserDao userDao;
+	@Autowired
+	private UserDao userDao;
     
 	private String getHashFromCookie(HttpServletRequest request) {
 		for(Cookie cookie : request.getCookies()) {
@@ -71,10 +71,10 @@ public class AccessHandlerInterceptor extends HandlerInterceptorAdapter  {
 			user_id = Integer.valueOf(request.getSession().getAttribute("user_id").toString());
 			User userInfo = userDao.getOne(user_id);
 //			System.out.println(userInfo.getType());
-			if (userInfo.getType() != 5) {
-				response.sendRedirect(request.getContextPath() + "/admin/login");
-				return false;
-			}
+//			if (userInfo.getType() != 5) {
+//				response.sendRedirect(request.getContextPath() + "/admin/login");
+//				return false;
+//			}
 		}
 
 		return true;

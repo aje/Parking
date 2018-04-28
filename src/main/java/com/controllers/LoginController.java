@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.dao.UserDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ import com.models.User;
 @Controller
 public class LoginController {
     private final
-	UserDao userDao;
+    UserDao userDao;
 
 	@Autowired
 	public LoginController(UserDao userDao) {
@@ -75,20 +76,20 @@ public class LoginController {
 
 		List<User> userInfo = userDao.getUser("WHERE `mobile` = '" + user1.getMobile() + "' ");
 		if(!userInfo.isEmpty()) { 																		// 3- check if user exists
-			if(BCrypt.checkpw(user1.getPassword(), userInfo.get(0).getPassword())) { 					// 3- check password 
-				setUserSession(request,"user_id", String.valueOf(userInfo.get(0).getId())); 			// 4- set user_id to session
-				if(request.getParameter("remember_me") != null) {
-					String hashRemember = BCrypt.hashpw(userInfo.get(0).getName() + "hehe", BCrypt.gensalt());
-					setUserCookie(response, "remember", hashRemember);
-					userDao.edit(userInfo.get(0).getId(), new String[] {"remember_token"}, new String[]  {hashRemember});
-				}
-				ajaxResponse.setMsg("You have successfully logged in.");
-				ajaxResponse.setRedirect("/admin/dashboard");											// 8- send redirect
-				ajaxResponse.setStatus(true);
-			} else {
-				ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
-				ajaxResponse.setStatus(false);
-			}
+//			if(BCrypt.checkpw(user1.getPassword(), userInfo.get(0).getPassword())) { 					// 3- check password
+//				setUserSession(request,"user_id", String.valueOf(userInfo.get(0).getId())); 			// 4- set user_id to session
+//				if(request.getParameter("remember_me") != null) {
+//					String hashRemember = BCrypt.hashpw(userInfo.get(0).getName() + "hehe", BCrypt.gensalt());
+//					setUserCookie(response, "remember", hashRemember);
+//					userDao.edit(userInfo.get(0));
+//				}
+//				ajaxResponse.setMsg("You have successfully logged in.");
+//				ajaxResponse.setRedirect("/admin/dashboard");											// 8- send redirect
+//				ajaxResponse.setStatus(true);
+//			} else {
+//				ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
+//				ajaxResponse.setStatus(false);
+//			}
 			
 		} else {
 			ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");

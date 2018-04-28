@@ -13,7 +13,7 @@
 	<h2>${msg!}</h2>Register new user <hr>
 	<strong><form:errors path="user.*" /></strong>
 	
-	<form action="/Parking/adduser" method="post">      	
+	<form action="/users/add" method="post">
 		<input name="name" placeholder="name" type="text"><@form.errors path="user.name" /><br>
 		<input name="email" placeholder="Email" type="text"><@form.errors path="user.email" /> <br>
 		<input name="mobile" placeholder="Mobile" type="text"><@form.errors path="user.mobile" /> <br>
