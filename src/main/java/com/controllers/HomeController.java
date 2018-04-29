@@ -1,17 +1,8 @@
 package com.controllers;
 
-import java.util.Map;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.models.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -25,5 +16,13 @@ public class HomeController {
 	public ModelAndView home() {
 		ModelAndView modelandview = new ModelAndView("/home");
 		return modelandview;
+	}
+
+	@RequestMapping("/register")
+	public ModelAndView showRegister() {
+		User user = new User();
+		ModelAndView mv = new ModelAndView("/auth/register");
+		mv.addObject("user", user);
+		return mv;
 	}
 }

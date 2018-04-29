@@ -39,6 +39,14 @@ var DatatableJsonRemoteDemo = function () {
 				selector: false,
 				textAlign: 'center'
 			}, {
+				field: "avatarLink",
+				title: "Image",
+				width: 60,
+				// callback function support for column rendering
+				template: function (row) {
+					return  '<img width=60 height=60 class="m--img-rounded" src="'+row.avatarLink+'">';
+				}
+			}, {
 				field: "name",
 				title: "Name",
 				// callback function support for column rendering
@@ -47,7 +55,7 @@ var DatatableJsonRemoteDemo = function () {
 						false: {'title': 'Deleted', 'class': 'm-badge--danger'},
 						true: {'title': 'Working', 'class': 'm-badge--success'}
 					};
-					return '<span class="m--font-boldest">' + row.name + '</span><span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';
+					return '<span class="m--font-boldest">' + row.name + '</span><br><span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';
 				}
 			}, {
 				field: "email",

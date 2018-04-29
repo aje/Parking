@@ -3,11 +3,12 @@ package com.models;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
 
 import java.util.Date;
 
@@ -22,24 +23,26 @@ public class User {
 	@Size(min=4, max=50) @Pattern(regexp="[^0-9]*")
 	private String name;
 
-	@NotNull
+	@NotEmpty
 	private String mobile;
 
 	@Column(name = "confirm_mobile")
 	private Integer confirmMobile;
 
 	@Column(name = "type", insertable=false)
-	private int type;
+	private Integer type;
 
-	@javax.validation.constraints.Email
+	@Email
 	private String email;
 
+	@JsonIgnore
 	private String password;
 
 	@Column(name = "plate_number")
 	private String plateNumber;
 
 	@Column(name = "last_factor", insertable = false)
+	@JsonIgnore
 	private Integer lastFactor;
 
 	@Column(name = "paid_status", insertable=false)
@@ -63,10 +66,12 @@ public class User {
 	private String avatarLink;
 
 	@Column(name = "remember_token")
+	@JsonIgnore
 	private String rememberToken;
 
 	private String role;
 
+	@JsonIgnore
 	private Integer lot;
 
 	public int getId() {
@@ -101,7 +106,7 @@ public class User {
 		this.confirmMobile = confirmMobile;
 	}
 
-	public int getType() {
+	public Integer getType() {
 		return type;
 	}
 

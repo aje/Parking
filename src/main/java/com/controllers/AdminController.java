@@ -1,6 +1,8 @@
 package com.controllers;
 
 import com.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/admin")
 public class AdminController{
-
+    private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	public AdminController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -24,6 +26,7 @@ public class AdminController{
 
 	@RequestMapping("/users/all")
 	public ModelAndView showUsers(){
+        logger.info("inji hastim");
 		ModelAndView model = new ModelAndView("/admin/users/users");
 		return model;
 	}

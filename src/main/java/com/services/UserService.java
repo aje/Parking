@@ -4,7 +4,6 @@ import com.dao.UserDao;
 import com.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,30 +16,24 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    @Transactional
     public boolean add(User user) {
-        return this.userDao.addUser(user);
+        return this.userDao.add(user);
     }
 
-    @Transactional
     public boolean update(User user, int id) {
-        return  this.userDao.editUser(user,id);
+        return  this.userDao.save(user,id);
     }
 
-    @Transactional
     public Boolean delete(int id, Boolean flag) {
-        return this.userDao.deleteUser(id, flag);
+        return this.userDao.delete(id);
     }
-    @Transactional
     public User getOne(int id) {
-        return this.userDao.getOneUser(id);
+        return this.userDao.get(id);
     }
-    @Transactional
     public List<User> get(String queryString) {
-        return this.userDao.getUser(queryString);
+        return this.userDao.get(queryString);
     }
-    @Transactional
     public Boolean isMobileExist(String mobile) {
-        return this.userDao.isMobileExistUser(mobile);
+        return this.userDao.isMobileExist(mobile);
     }
 }
