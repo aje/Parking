@@ -1,19 +1,19 @@
 package com.models;
 
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "users")
+@Entity(name = "users")
+@DynamicUpdate
 public class User {
-
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,28 +26,30 @@ public class User {
 	private String mobile;
 
 	@Column(name = "confirm_mobile")
-	private int confirmMobile;
+	private Integer confirmMobile;
 
 	@Column(name = "type", insertable=false)
 	private int type;
+
 	@javax.validation.constraints.Email
 	private String email;
+
 	private String password;
 
 	@Column(name = "plate_number")
 	private String plateNumber;
 
 	@Column(name = "last_factor", insertable = false)
-	private int lastFactor;
+	private Integer lastFactor;
 
 	@Column(name = "paid_status", insertable=false)
-	private int paidStatus;
+	private Boolean paidStatus;
 
 	@Column(name = "order_count", insertable = false)
-	private int orderCount;
+	private Integer orderCount;
 
 	@Column(name = "status", insertable=false)
-	private int status;
+	private Boolean status;
 
 
 	@Column(name = "created_at", updatable = false, insertable=false)
@@ -62,8 +64,10 @@ public class User {
 
 	@Column(name = "remember_token")
 	private String rememberToken;
+
 	private String role;
-	private int lot;
+
+	private Integer lot;
 
 	public int getId() {
 		return id;
@@ -89,11 +93,11 @@ public class User {
 		this.mobile = mobile;
 	}
 
-	public int getConfirmMobile() {
+	public Integer getConfirmMobile() {
 		return confirmMobile;
 	}
 
-	public void setConfirmMobile(int confirmMobile) {
+	public void setConfirmMobile(Integer confirmMobile) {
 		this.confirmMobile = confirmMobile;
 	}
 
@@ -129,35 +133,35 @@ public class User {
 		this.plateNumber = plateNumber;
 	}
 
-	public int getLastFactor() {
+	public Integer getLastFactor() {
 		return lastFactor;
 	}
 
-	public void setLastFactor(int lastFactor) {
+	public void setLastFactor(Integer lastFactor) {
 		this.lastFactor = lastFactor;
 	}
 
-	public int getPaidStatus() {
+	public Boolean getPaidStatus() {
 		return paidStatus;
 	}
 
-	public void setPaidStatus(int paidStatus) {
+	public void setPaidStatus(Boolean paidStatus) {
 		this.paidStatus = paidStatus;
 	}
 
-	public int getOrderCount() {
+	public Integer getOrderCount() {
 		return orderCount;
 	}
 
-	public void setOrderCount(int orderCount) {
+	public void setOrderCount(Integer orderCount) {
 		this.orderCount = orderCount;
 	}
 
-	public int getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
@@ -201,11 +205,11 @@ public class User {
 		this.role = role;
 	}
 
-	public int getLot() {
+	public Integer getLot() {
 		return lot;
 	}
 
-	public void setLot(int lot) {
+	public void setLot(Integer lot) {
 		this.lot = lot;
 	}
 
@@ -233,3 +237,5 @@ public class User {
 				'}';
 	}
 }
+
+

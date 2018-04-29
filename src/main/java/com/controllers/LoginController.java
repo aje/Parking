@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.dao.UserDao;
+import com.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,12 +26,11 @@ import com.models.User;
 
 @Controller
 public class LoginController {
-    private final
-    UserDao userDao;
+	private final UserService userService;
 
 	@Autowired
-	public LoginController(UserDao userDao) {
-		this.userDao = userDao;
+	public LoginController(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class LoginController {
 			return ajaxResponse;
 		}
 
-		List<User> userInfo = userDao.getUser("WHERE `mobile` = '" + user1.getMobile() + "' ");
+		List<User> userInfo = userService.get("WHERE `mobile` = '" + user1.getMobile() + "' ");
 		if(!userInfo.isEmpty()) { 																		// 3- check if user exists
 //			if(BCrypt.checkpw(user1.getPassword(), userInfo.get(0).getPassword())) { 					// 3- check password
 //				setUserSession(request,"user_id", String.valueOf(userInfo.get(0).getId())); 			// 4- set user_id to session

@@ -10,7 +10,7 @@ var DatatableJsonRemoteDemo = function () {
 			data: {
 				type: 'remote',
 				source: 'http://localhost:8080/admin/users/json',
-				pageSize: 10,
+				pageSize: 10
 			},
 
 			// layout definition
@@ -51,30 +51,30 @@ var DatatableJsonRemoteDemo = function () {
 				}
 			}, {
 				field: "email",
-				title: "Email",
+				title: "Email"
 				// template: function (row) {
 				// 	// callback function support for column rendering
 				// 	return row.ShipCountry + ' - ' + row.ShipCity;
 				// }
 			}, {
-				field: "plate",
+				field: "plateNumber",
 				title: "Plate Number"
 			}, {
 				field: "mobile",
 				title: "Mobile",
 				responsive: {visible: 'lg'}
 			}, {
-				field: "order_counts",
+				field: "orderCount",
 				title: "Parked",
 				responsive: {visible: 'lg'}
 			}, {
-				field: "created_at",
+				field: "createdAt",
 				title: "Sign Up",
 				type: "date",
 				format: "MM/DD/YYYY",
 				// callback function support for column rendering
 				template: function (row) {
-					var d = new Date(row.created_at);
+					var d = new Date(row.createdAt);
 					return  d.getFullYear()+ '/' + (d.getMonth()+1) + '/' + d.getDate();
 				}
 			}, {

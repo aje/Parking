@@ -1,35 +1,32 @@
 package com.dao;
 
 import com.models.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Repository("userDao")
 public class UserDaoImp implements UserDao {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+
+	private final SessionFactory sessionFactory;
 
 	@Autowired
-	private SessionFactory sessionFactory;
-	@Autowired
-	private DataSource dataSource;
-	@Autowired
-	private JdbcTemplate jdb;
+	public UserDaoImp(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
+	/**
+	* add user to database
+	 */
 	@Override
 	@Transactional
-	public Boolean add(User user) {
+	public Boolean addUser(User user) {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
@@ -46,55 +43,63 @@ public class UserDaoImp implements UserDao {
 	 */
 	@Override
 	@Transactional
-	public Boolean edit(User user) {
+	public Boolean editUser(User user, int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(user);
-		return true;
-//		String paras = "";
-//		for (int i=0; i< para.length; i++) {
-//			paras += para[i] + "= \"" + values[i] + "\"" ;
-//			if (i < para.length - 1)
-//				paras += ", ";
-//		}
-//		final String query = "UPDATE users SET "+paras+" WHERE id LIKE " + id;
-//		JdbcTemplate jdb = new JdbcTemplate(dataSource);
+		try {
+			User obj = session.get(User.class, id);
+			if(user.getMobile() != null) obj.setMobile(user.getMobile());
+			if(user.getName() != null) obj.setName(user.getName());
+			if(user.getStatus() != true || user.getStatus() != false ) obj.setStatus(user.getStatus());
+			session.update(obj);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
+	@SuppressWarnings("unchecked")
 	public List<User> getUser(String queryString) {
-//		JdbcTemplate jdb = new JdbcTemplate(dataSource);
-		String qry = "SELECT * FROM `users` " + queryString;
-		return jdb.query(qry, new BeanPropertyRowMapper<User>(User.class));
+		Session session = this.sessionFactory.getCurrentSession();
+		try {
+			return session.createQuery("from users " + queryString).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public User getOne(int id) {
-//		JdbcTemplate jdb = new JdbcTemplate(dataSource);
-		String qry = "SELECT * FROM `users` WHERE id LIKE  " + id;
-		return jdb.queryForObject(qry, new BeanPropertyRowMapper<User>(User.class));
+	@Transactional
+	public User getOneUser(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.load(User.class, new Integer(id));
+
 	}
 
 
 	@Override
-	public int isMobileExist(String mobile){
-//		JdbcTemplate jdb = new JdbcTemplate(dataSource);
-        String sql = "SELECT COUNT(*) FROM users WHERE mobile=?";
-        return jdb.queryForObject(sql, new Object[] { mobile }, int.class);
-    }
+	@Transactional
+	public Boolean isMobileExistUser(String mobile){
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.createQuery("from users WHERE MOBILE = " + mobile) != null;
+	}
 				
 	/**
 	 * delete user database  
 	 */
 	@Override
-	public Boolean delete(int id, int flag) {
-		final String query = "UPDATE users SET" + " status = "+flag+" WHERE id LIKE ?";
-//		JdbcTemplate jdb = new JdbcTemplate(dataSource);
+	@Transactional
+	public Boolean deleteUser(int id, Boolean flag) {
 		try {
-			jdb.update(query, new Object[] { id });
-		} catch (Exception e){
+			User user = new User();
+			user.setStatus(flag);
+			this.editUser(user, id);
+			return true;
+		} catch (Exception e) {
 			return false;
 		}
-		
-		return true;		
 	}
 }

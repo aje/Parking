@@ -50,6 +50,7 @@
     <bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="order" value="1"/>
         <property name="cache" value="false"/>
+        <property name="exposeSpringMacroHelpers" value="true" />
         <property name="prefix" value=""/>
         <property name="suffix" value=".ftl"/>
         <property name="requestContextAttribute" value="rc"/>
@@ -89,13 +90,6 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
-
-
-
-
-
-    <!--<tx:jta-transaction-manager id="transactionManager"/>-->
 </beans>
 
 

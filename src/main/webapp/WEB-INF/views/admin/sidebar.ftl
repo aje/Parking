@@ -1,4 +1,4 @@
-<#assign activeNav = "Dashboard">
+<#assign url =  springMacroRequestContext.getRequestUri() />
 <#assign sidebarnav = [
     {
         "title" : "Dashboard",
@@ -7,7 +7,7 @@
     },{
         "title" : "Sales",
         "icon" : "flaticon-cart",
-        "link" : "#",
+        "link" : "/admin/sales",
         "submenu" : [ {
                 "title" : "Sales Dashboard",
                 "icon" : "m-menu__link-bullet--dot",
@@ -29,7 +29,7 @@
     },{
         "title" : "Users",
         "icon" : "flaticon-users",
-        "link" : "#",
+        "link" : "/admin/users",
         "submenu" : [ {
                 "title" : "User Dashboard",
                 "icon" : "m-menu__link-bullet--dot",
@@ -47,7 +47,7 @@
     },{
         "title" : "Parkings",
         "icon" : "flaticon-truck",
-        "link" : "#",
+        "link" : "/admin/parkings",
         "submenu" : [ {
                 "title" : "Parkings Dashboard",
                 "icon" : "m-menu__link-bullet--dot",
@@ -76,9 +76,9 @@
          data-menu-dropdown-timeout="500">
         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
             <#list sidebarnav as nav>
-                <li class="m-menu__item <#if nav.submenu??>m-menu__item--submenu</#if> <#if nav.title == activeNav>m-menu__item--active</#if> m-menu__item--submenu  ${nav.class!}" aria-haspopup="true"
-                    data-menu-submenu-toggle="hover">
-                    <a href="${nav.link!}" class="m-menu__link m-menu__toggle">
+                <li class="m-menu__item <#if nav.submenu??>m-menu__item--submenu</#if> <#if url?contains(nav.link)> m-menu__item--active</#if> m-menu__item--submenu  ${nav.class!}"  <#if url?contains(nav.link)> aria-haspopup="true"  </#if>
+                    <#if nav.submenu??> data-menu-submenu-toggle="hover" </#if> >
+                    <a href="${nav.link!}" class="m-menu__link  <#if nav.submenu??> m-menu__toggle </#if>">
                         <span class="m-menu__item-here"></span>
                         <i class="m-menu__link-icon ${nav.icon!}"></i>
                         <span class="m-menu__link-text">

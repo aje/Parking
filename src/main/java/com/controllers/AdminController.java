@@ -22,7 +22,7 @@ public class AdminController{
 	}
 
 
-	@RequestMapping("/users")
+	@RequestMapping("/users/all")
 	public ModelAndView showUsers(){
 		ModelAndView model = new ModelAndView("/admin/users/users");
 		return model;

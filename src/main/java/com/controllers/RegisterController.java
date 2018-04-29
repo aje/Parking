@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.dao.UserDao;
 import com.models.User;
+import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,17 +19,14 @@ import javax.validation.Valid;
 //@SessionAttributes("name")
 public class RegisterController extends User{
 	
+	final
+	UserService userService;
+
 	@Autowired
-    UserDao userDao;
-	/**
-	 * show register page
-	 */
-	@RequestMapping("/register")
-	public ModelAndView showRegisterPage() {	
-		ModelAndView model = new ModelAndView("auth/register");
-		return model;
+	public RegisterController(UserService userService) {
+		this.userService = userService;
 	}
-	
+
 	/**
 	 * register handler
 	 * 
@@ -38,18 +36,18 @@ public class RegisterController extends User{
 	public ModelAndView register(@Valid @ModelAttribute("user") User user, BindingResult result,  HttpServletResponse response, HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("auth/register");
 		
-		if (result.hasErrors() || (userDao.isMobileExist(user.getMobile()) > 0)) {	// add to database
-			if ((userDao.isMobileExist(user.getMobile()) > 0)) {
-				model.addObject("msg", "Mobile exist");
-			} else {
-				model.addObject("msg", "There was an error");	
-			}
-			return model;
-		} else {
-			userDao.add(user);
-//			userController.addNameToSessionCookie(response, request,"name", user.getName());
-			model.addObject("msg", "It was successful");
-		}
+//		if (result.hasErrors() || !(userDao.isMobileExist(user.getMobile()))) {	// add to database
+//			if (!(userDao.isMobileExist(user.getMobile()))) {
+//				model.addObject("msg", "Mobile exist");
+//			} else {
+//				model.addObject("msg", "There was an error");
+//			}
+//			return model;
+//		} else {
+//			userDao.add(user);
+////			userController.addNameToSessionCookie(response, request,"name", user.getName());
+//			model.addObject("msg", "It was successful");
+//		}
 			
 		return model;
 	}

@@ -1,10 +1,10 @@
 package com.controllers;
 
-import com.dao.UserDao;
 import com.models.User;
 import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,14 +21,13 @@ import java.util.List;
 @Controller
 @SessionAttributes("name")
 public class UserController extends User {
-	@Autowired
-	private UserDao userDao;
+
+	private final UserService userService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
-	DataSource dataSource;
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 //	/**
 //	 * get cookie
@@ -44,7 +43,7 @@ public class UserController extends User {
 
 	@RequestMapping(value = "/users/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute("user") User u) {
-		this.userService.addUser(u);
+		this.userService.add(u);
 		return "/admin/users/done";
 	}
 
@@ -52,8 +51,9 @@ public class UserController extends User {
 	 * show all users
 	 */
 	@RequestMapping("/admin/users/json")
+	@Transactional
 	public @ResponseBody List<User> showUsers() {
-		return  userDao.getUser("");
+		return  userService.get("");
 	}
 
 	/*
@@ -66,8 +66,9 @@ public class UserController extends User {
 			model.addObject("msg", "Something is wrong here");
 			return model;
 		}
-//		editUserInDB(user);
-		model.addObject("msg", "successfully edited");
+		if (this.userService.update(user, user.getId())) {
+			model.addObject("msg", "successfully edited");
+		}
 		return model;
 	}
 
@@ -75,17 +76,10 @@ public class UserController extends User {
 	/**
 	 * delete handler
 	 */
-	@RequestMapping(value="/users/delete/{id}" , method = RequestMethod.GET)
-	public ModelAndView deleteUser(@PathVariable("id") int id) {
-		ModelAndView model = new ModelAndView("users/usersList");
-		try {
-			userDao.delete(id, 0);
-			model.addObject("msg", "successfully deleted");
-		} catch (Exception e) {
-			model.addObject("msg", "can't delete");
-		}
-		model.addObject("msg", "successfully deleted");
-		model.addObject("data", userDao.getUser(""));
+	@RequestMapping(value="/{flag}/{id}" , method = RequestMethod.GET)
+	public ModelAndView deleteOrRecoverUser(@PathVariable("id") int id, @PathVariable("flag") Boolean flag) {
+		ModelAndView model = new ModelAndView("/admin/users/users");
+        userService.delete(id, flag);
 		return model;
 	}
 	
@@ -97,26 +91,8 @@ public class UserController extends User {
 	public ModelAndView edit(@ModelAttribute("id") String id) {	
 		String qrr = " WHERE id LIKE " + id;
 		ModelAndView model = new ModelAndView("users/editUser");
-		model.addObject("user",userDao.getUser(qrr));
+		model.addObject("user",userService.get(qrr));
 		return model;
 	}
-	
 
-	/**
-	 * recover handler
-	 */
-	@RequestMapping(value="/users/recover/{id}" , method = RequestMethod.GET)
-	public ModelAndView revocerUser(@PathVariable("id") int id) {
-		
-		ModelAndView model = new ModelAndView("users/usersList");
-		try {
-			userDao.delete(id, 1);
-			model.addObject("msg", "successfully deleted");
-		} catch (Exception e) {
-			model.addObject("msg", "can't delete");
-		}
-		model.addObject("msg", "successfully deleted");
-		model.addObject("data", userDao.getUser(""));
-		return model;
-	}
 }

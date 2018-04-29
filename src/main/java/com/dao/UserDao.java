@@ -5,10 +5,10 @@ import com.models.User;
 import java.util.List;
 
 public interface UserDao {
-	public Boolean add(User user);
-	public Boolean edit(User user);
-	public Boolean delete(int id, int flag);
-	public User getOne(int id);
-	public List<User> getUser(String queryString);
-	public int isMobileExist(String mobile);
+	Boolean addUser(User user);
+	Boolean editUser(User user, int id);
+	Boolean deleteUser(int id, Boolean flag);
+	User getOneUser(int id);
+	List<User> getUser(String queryString);
+	Boolean isMobileExistUser(String mobile);
 }
