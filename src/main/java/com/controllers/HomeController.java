@@ -18,7 +18,7 @@ public class HomeController {
 		return modelandview;
 	}
 
-	@RequestMapping("/register")
+	@RequestMapping("/registerf")
 	public ModelAndView showRegister() {
 		User user = new User();
 		ModelAndView mv = new ModelAndView("/auth/register");

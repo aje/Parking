@@ -4,7 +4,6 @@ package com.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import javax.validation.constraints.NotBlank;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

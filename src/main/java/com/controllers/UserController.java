@@ -2,7 +2,6 @@ package com.controllers;
 
 import com.dao.UserDao;
 import com.models.User;
-import com.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,8 @@ public class UserController extends User {
 
 	private final UserDao userDao;
 
-//	private final UserService userService;
-
 	@Autowired
-	public UserController(UserService userService, UserDao userDao) {
-//		this.userService = userService;
+	public UserController( UserDao userDao) {
 		this.userDao = userDao;
 	}
 

@@ -4,15 +4,17 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
+       xmlns:wf="http://www.springframework.org/schema/webflow-config"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/webflow-config
+        http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
 
 	<!-- Step 3: Add support for component scanning -->
 	<context:component-scan base-package="com.controllers"/>
@@ -63,7 +65,6 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
@@ -95,6 +96,29 @@
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--webflow-->
+    <wf:flow-executor id="flowExecutor" />
+
+    <wf:flow-registry id="flowRegistry" base-path="WEB-INF/views/flows" flow-builder-services="flowBuilderServices">
+        <wf:flow-location path="register/signup-flow.xml" id="register"/>
+        <wf:flow-location-pattern value="/**/*-flow.xml" />
+    </wf:flow-registry>
+
+    <wf:flow-builder-services id="flowBuilderServices" view-factory-creator="viewFactoryCreator" />
+
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter" >
+        <property name="flowExecutor" ref="flowExecutor"/>
+    </bean>
+
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry"/>
+        <!--<property name="order" value="-1"/>-->
+    </bean>
+
+    <bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <property name="viewResolvers" ref="freemarkerViewResolver" />
     </bean>
 </beans>
 
