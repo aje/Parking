@@ -107,8 +107,9 @@ public class UserDaoImp implements UserDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.createQuery("from users WHERE MOBILE = " + mobile) != null;
 	}
-				
-	/**
+
+
+    /**
 	 * delete user database  
 	 */
 	@Override

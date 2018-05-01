@@ -7,47 +7,51 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import com.dao.UserDao;
-import com.services.UserService;
+import com.models.SessionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.*;
 import com.models.User;
 
 
 @Controller
 public class LoginController {
-	private final UserService userService;
+
+
+	private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private final UserDao userDao;
 
 	@Autowired
-	public LoginController(UserService userService) {
-		this.userService = userService;
+	public LoginController(UserDao userDao) {
+		this.userDao = userDao;
 	}
+
 
 	/**
 	 * show login page
 	 */	
 	@RequestMapping("/login")
-	public String login() {	
+	public String login() {
 		return "/admin/users/login";
 	}
 
-	/**
-	 * show admin login page
-	 */	
-	@RequestMapping("/admin/login")
-	public String adminLogin() {
-		return "/admin/users/login";
-	}
+//	/**
+//	 * show admin login page
+//	 */
+//	@RequestMapping("/admin/login")
+//	public String adminLogin() {
+//		return "/admin/users/login";
+//	}
 	
 	
 	private void setUserSession(HttpServletRequest request, String name, String value) {
@@ -59,23 +63,41 @@ public class LoginController {
 		Cookie cookie = new Cookie(name, value); // set cookie
 		response.addCookie(cookie);
 	}
-	
+
 
 	/**
 	 * login  handler
 	 */
-	@RequestMapping(value="/loginCheck" , method = RequestMethod.POST)
-	public @ResponseBody AjaxResponse loginCheck(@Valid @ModelAttribute("user1") User user1, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
-		AjaxResponse ajaxResponse = new AjaxResponse(); 
-//		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember_me"));
-		if (result.hasErrors()) {																		// form validation
-			ajaxResponse.setStatus(false);
-			ajaxResponse.setMsg("There was an error");
-			return ajaxResponse;
-		}
+	//	public @ResponseBody AjaxResponse loginCheck(@Valid @ModelAttribute("user1") User user1, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
 
-		List<User> userInfo = userService.get("WHERE `mobile` = '" + user1.getMobile() + "' ");
-		if(!userInfo.isEmpty()) { 																		// 3- check if user exists
+	@RequestMapping(value="/login-success")
+	public @ResponseBody AjaxResponse loginCheck(HttpServletResponse response, HttpServletRequest request) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		AjaxResponse ajaxResponse = new AjaxResponse();
+		User user = userDao.get(" WHERE mobile = "+auth.getName()).get(0);
+		SessionModel sm = new SessionModel();
+		sm.setFullname(user.getName());
+		sm.setMobile(user.getMobile());
+		sm.setType(user.getType());
+//		logger.info(userDao.get(" WHERE mobile = "+auth.getName()).get(0).toString());
+		ajaxResponse.setStatus(true);
+		if (user.getType() == 5)
+			ajaxResponse.setRedirect("/admin/dashboard");
+		else if (user.getType() == 1){
+			ajaxResponse.setRedirect("/user/profile");
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("user", sm); // set session
+		ajaxResponse.setMsg("You have successfully logged in.");
+//		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember_me"));
+//		if (result.hasErrors()) {																		// form validation
+//			ajaxResponse.setStatus(false);
+//			ajaxResponse.setMsg("There was an error");
+//			return ajaxResponse;
+//		}
+//
+//		List<User> userInfo = userService.get("WHERE `mobile` = '" + user1.getMobile() + "' ");
+//		if(!userInfo.isEmpty()) { 																		// 3- check if user exists
 //			if(BCrypt.checkpw(user1.getPassword(), userInfo.get(0).getPassword())) { 					// 3- check password
 //				setUserSession(request,"user_id", String.valueOf(userInfo.get(0).getId())); 			// 4- set user_id to session
 //				if(request.getParameter("remember_me") != null) {
@@ -90,31 +112,36 @@ public class LoginController {
 //				ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
 //				ajaxResponse.setStatus(false);
 //			}
-			
-		} else {
-			ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
-			ajaxResponse.setStatus(false);		
-		}		
+//
+//		} else {
+//			ajaxResponse.setMsg("Mobile and password is wrong! Please try again.");
+//			ajaxResponse.setStatus(false);
+//		}
 		return ajaxResponse;
 	}
-	
+
+
 
 
 	/**
 	 * logout
-	 * @throws IOException 
-	 */	
+	 * @throws IOException
+	 */
 	@RequestMapping("/logout")
 	public void logout(HttpServletResponse response, ModelMap model, HttpServletRequest request, SessionStatus sessionStatus) throws IOException {
-		Cookie cookie = new Cookie("remember", null);
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
-		sessionStatus.setComplete();
-		HttpSession session = request.getSession();
-		session.removeAttribute("user_id");
-		response.sendRedirect(request.getContextPath() + "/admin/login");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+//		Cookie cookie = new Cookie("remember", null);
+//		cookie.setMaxAge(0);
+//		response.addCookie(cookie);
+//		sessionStatus.setComplete();
+//		HttpSession session = request.getSession();
+//		session.removeAttribute("user_id");
+		response.sendRedirect(request.getContextPath() + "/login");
 	}
 
-	
+
 
 }

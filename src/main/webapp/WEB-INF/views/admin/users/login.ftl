@@ -22,9 +22,9 @@
 					</h3>
 					<div id="login-error" class="form-control-feedback">${msg!}</div>
 				</div>
-				<form class="m-login__form m-form" action="/loginCheck" method="post">
+				<form class="m-login__form m-form" action="/login" method="post">
 					<div class="form-group m-form__group">
-                        <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input class="form-control m-input" type="text" placeholder="Mobile" name="mobile" autocomplete="off">
 						<div id="mobile-error" class="form-control-feedback">${mobileError!}</div>
 					</div>

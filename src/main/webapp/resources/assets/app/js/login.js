@@ -84,17 +84,19 @@ var SnippetLogin = function() {
                 return;
             }
 
-            btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+            // form.submit();
+
+            // btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '/loginCheck',
+                url: '/login',
                 success: function(response, status, xhr, $form) {
 
 
 	                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 	                    if(response.status) {
 	                    	showErrorMsg(form, 'success', response.msg);
-	                    	window.location = "/admin/dashboard";
+	                    	// window.location = "/admin/dashboard";
 	                    }
 	                    else {
 	                    	showErrorMsg(form, 'danger', response.msg);
@@ -219,12 +221,12 @@ var SnippetLogin = function() {
 
 //== Class Initialization
 jQuery(document).ready(function() {
-    // var token = $('meta[name="_csrf"]').attr('content');
-    // var header = $('meta[name="_csrf_header"]').attr('content');
-    // if(token.length > 0 && header.length > 0) {
-    //     $(document).ajaxSend(function (e, xhr, options) {
-    //         xhr.setRequestHeader(header,token);
-    //     })
-    // }
+    var token = $('meta[name="_csrf"]').attr('content');
+    var header = $('meta[name="_csrf_header"]').attr('content');
+    if(token.length > 0 && header.length > 0) {
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header,token);
+        })
+    }
     SnippetLogin.init();
 });

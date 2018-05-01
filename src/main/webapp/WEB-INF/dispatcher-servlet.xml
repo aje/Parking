@@ -24,14 +24,14 @@
 	<!-- Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven/>
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/admin/"/>
-            <mvc:mapping path="/login"/>
-            <mvc:mapping path="/admin/**"/>
-            <bean class="com.interceptors.AccessHandlerInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/admin/"/>-->
+            <!--<mvc:mapping path="/login"/>-->
+            <!--<mvc:mapping path="/admin/**"/>-->
+            <!--<bean class="com.interceptors.AccessHandlerInterceptor" />-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 
     <mvc:resources mapping="/resources/**" location="resources" />

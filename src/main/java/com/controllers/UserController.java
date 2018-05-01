@@ -43,6 +43,11 @@ public class UserController extends User {
 //		return null;
 //	}
 
+	@RequestMapping("/user/profile")
+	public String login() {
+		return "/user/profile";
+	}
+
 	@RequestMapping(value = "/users/add", method = RequestMethod.POST)
 	public String add(@Valid @ModelAttribute("user") User u, BindingResult result) {
 		logger.info(u.toString());

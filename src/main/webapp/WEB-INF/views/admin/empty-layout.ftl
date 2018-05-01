@@ -21,8 +21,8 @@
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<#--<meta name="_csrf" content="${_csrf.token}">-->
-		<#--<meta name="_csrf_header" content="${_csrf.headerName}">-->
+		<meta name="_csrf" content="${_csrf.token}">
+		<meta name="_csrf_header" content="${_csrf.headerName}">
 		<!--begin::Web font -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>
