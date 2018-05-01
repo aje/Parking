@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @ControllerAdvice
 public class GlobalController {
@@ -25,24 +26,25 @@ public class GlobalController {
 
     @ModelAttribute("authUser")
     public AuthUser getAuthUser() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        logger.info(auth.toString());
-        if (session.getAttribute("authUser") == null && false) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        logger.info(auth.getName());
+        if (session.getAttribute("authUser") == null) {
             // set session
-//            User user = userDao.get(" WHERE mobile " + auth.getName()).get(0);
-//            if (user != null) {
-//                authUser.setFullname(user.getName());
-//                authUser.setMobile(user.getMobile());
-//                authUser.setType(user.getType());
+//            List<User> user = userDao.get(" WHERE mobile = " + auth.getName() );
+//            if (!user.isEmpty()) {
+//                authUser.setFullname(user.get(0).getName());
+//                authUser.setMobile(user.get(0).getMobile());
+//                authUser.setType(user.get(0).getType());
 //
 //                session.setAttribute("user", authUser); // set session
 //            }
 //            logger.info(authUser.toString());
-            return authUser;
-        } else if (session.getAttribute("authUser") != null )  {
-            return (AuthUser) session.getAttribute("authUser");
+//            return authUser;
+//        } else if (auth.getName() == "anonymousUser" )  {
+//            logger.info("null");
+            return null;
         }
-        return null;
+        return (AuthUser) session.getAttribute("authUser");
     }
 
 }
