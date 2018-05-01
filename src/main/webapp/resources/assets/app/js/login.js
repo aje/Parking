@@ -96,7 +96,7 @@ var SnippetLogin = function() {
 	                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 	                    if(response.status) {
 	                    	showErrorMsg(form, 'success', response.msg);
-	                    	// window.location = "/admin/dashboard";
+	                    	window.location = response.redirect;
 	                    }
 	                    else {
 	                    	showErrorMsg(form, 'danger', response.msg);

@@ -1,7 +1,6 @@
 package com.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.UserDao;
-import com.models.SessionModel;
+import com.models.AuthUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		AjaxResponse ajaxResponse = new AjaxResponse();
 		User user = userDao.get(" WHERE mobile = "+auth.getName()).get(0);
-		SessionModel sm = new SessionModel();
+		AuthUser sm = new AuthUser();
 		sm.setFullname(user.getName());
 		sm.setMobile(user.getMobile());
 		sm.setType(user.getType());
@@ -87,7 +86,7 @@ public class LoginController {
 			ajaxResponse.setRedirect("/user/profile");
 		}
 		HttpSession session = request.getSession();
-		session.setAttribute("user", sm); // set session
+		session.setAttribute("authUser", sm); // set session
 		ajaxResponse.setMsg("You have successfully logged in.");
 //		System.out.println(user.getMobile() + " | " + user.getPassword()  + " | " + request.getParameter("remember_me"));
 //		if (result.hasErrors()) {																		// form validation

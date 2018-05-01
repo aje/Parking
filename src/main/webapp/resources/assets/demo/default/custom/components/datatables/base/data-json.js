@@ -4,9 +4,14 @@ var DatatableJsonRemoteDemo = function () {
 	//== Private functions
 	// basic demo
 	var demo = function () {
-
+        var token = $('meta[name="_csrf"]').attr('content');
+        var header = $('meta[name="_csrf_header"]').attr('content');
 		var datatable = $('.m_datatable').mDatatable({
 			// datasource definition
+			// headers: {
+             //    '_csrf': token,
+			// 	'_csrf_header' : header
+			// },
 			data: {
 				type: 'remote',
 				source: 'http://localhost:8080/admin/users/json',
@@ -155,6 +160,13 @@ var DatatableJsonRemoteDemo = function () {
 }();
 
 jQuery(document).ready(function () {
-	DatatableJsonRemoteDemo.init();
+    var token = $('meta[name="_csrf"]').attr('content');
+    var header = $('meta[name="_csrf_header"]').attr('content');
+    if(token.length > 0 && header.length > 0) {
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header,token);
+        })
+    }
+    DatatableJsonRemoteDemo.init();
 	$('#m_form_status, #m_form_type').selectpicker();
 });

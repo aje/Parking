@@ -691,7 +691,7 @@
                                     <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
                                     <div class="m-dropdown__inner">
                                         <div class="m-dropdown__header m--align-center"
-                                             style="background: url(${imgPath}/misc/notification_bg.jpg); background-size: cover;">
+                                             style="background: url(${imgPath}misc/notification_bg.jpg); background-size: cover;">
 											<span class="m-dropdown__header-title">
 												9 New
 											</span>
@@ -912,7 +912,7 @@
                                     <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                     <div class="m-dropdown__inner">
                                         <div class="m-dropdown__header m--align-center"
-                                             style="background: url(${imgPath}/misc/quick_actions_bg.jpg); background-size: cover;">
+                                             style="background: url(${imgPath}misc/quick_actions_bg.jpg); background-size: cover;">
 											<span class="m-dropdown__header-title">
 												Quick Actions
 											</span>
@@ -964,30 +964,30 @@
                                 data-dropdown-toggle="click">
                                 <a href="#" class="m-nav__link m-dropdown__toggle">
 									<span class="m-topbar__userpic">
-										<img src="${imgPath}/users/user4.jpg"
+										<img src="${imgPath}users/user4.jpg"
                                              class="m--img-rounded m--marginless m--img-centered" alt=""/>
 									</span>
                                     <span class="m-topbar__username m--hide">
-										Nick
+                                    ${authUser.fullname!}
 									</span>
                                 </a>
                                 <div class="m-dropdown__wrapper">
                                     <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                     <div class="m-dropdown__inner">
                                         <div class="m-dropdown__header m--align-center"
-                                             style="background: url(${imgPath}/misc/user_profile_bg.jpg); background-size: cover;">
+                                             style="background: url(${imgPath}misc/user_profile_bg.jpg); background-size: cover;">
                                             <div class="m-card-user m-card-user--skin-dark">
                                                 <div class="m-card-user__pic">
-                                                    <img src="${imgPath!}/users/user4.jpg"
+                                                    <img src="${imgPath!}users/user4.jpg"
                                                          class="m--img-rounded m--marginless" alt=""/>
                                                 </div>
                                                 <div class="m-card-user__details">
-                                                    <#if user??>
+                                                    <#if authUser??>
 													<span class="m-card-user__name m--font-weight-500">
-                                                    ${user.name!}
+                                                    ${authUser.fullname!}
                                                     </span>
                                                     <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                                                    ${user.mobile!}
+                                                    ${authUser.mobile!}
                                                     </#if>
                                                     </a>
                                                 </div>

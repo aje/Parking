@@ -1,9 +1,14 @@
 package com.models;
 
-public class SessionModel {
+import java.io.Serializable;
+
+public class AuthUser implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String fullname;
     private String mobile;
     private int type;
+
 
     public String getFullname() {
         return fullname;
@@ -27,5 +32,14 @@ public class SessionModel {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthUser{" +
+                "fullname='" + fullname + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
