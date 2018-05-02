@@ -26,7 +26,7 @@ public class User {
 	private String mobile;
 
 	@Column(name = "confirm_mobile")
-	private Integer confirmMobile;
+	private String confirmMobile;
 
 	@Column(name = "type", insertable=false)
 	private Integer type;
@@ -68,7 +68,6 @@ public class User {
 	@JsonIgnore
 	private String rememberToken;
 
-	private String role;
 
 	@JsonIgnore
 	private Integer lot;
@@ -97,11 +96,11 @@ public class User {
 		this.mobile = mobile;
 	}
 
-	public Integer getConfirmMobile() {
+	public String getConfirmMobile() {
 		return confirmMobile;
 	}
 
-	public void setConfirmMobile(Integer confirmMobile) {
+	public void setConfirmMobile(String confirmMobile) {
 		this.confirmMobile = confirmMobile;
 	}
 
@@ -201,14 +200,6 @@ public class User {
 		this.rememberToken = rememberToken;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public Integer getLot() {
 		return lot;
 	}
@@ -236,7 +227,6 @@ public class User {
 				", updatedAt=" + updatedAt +
 				", avatarLink='" + avatarLink + '\'' +
 				", rememberToken='" + rememberToken + '\'' +
-				", role='" + role + '\'' +
 				", lot=" + lot +
 				'}';
 	}

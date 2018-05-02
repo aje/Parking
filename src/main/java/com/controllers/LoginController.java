@@ -14,10 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import com.models.User;
@@ -43,6 +45,53 @@ public class LoginController {
 	public String login() {
 		return "/admin/users/login";
 	}
+
+	/**
+	 * loginChecker handler
+	 */
+	@RequestMapping("/getCode")
+	public @ResponseBody AjaxResponse getCode(@RequestParam("mobile") String mobile) {
+        User user = new User();
+        AjaxResponse ar = new AjaxResponse();
+		Boolean userExists = userDao.isMobileExist(mobile);
+        // check if user exists, if exists get it from db, if no, save it to db
+        if(!userExists) {
+            user.setMobile(mobile);
+            userDao.add(user);
+            logger.info("user is not exist");
+        } else {
+            user = userDao.get(" WHERE mobile = "+mobile).get(0);
+            logger.info("Id user" + user.getId());
+        }
+        String hashCode = generateCodeAndSendSMS();
+        if(hashCode != null) {
+            user.setConfirmMobile(hashCode);
+			if(userExists) {
+				userDao.save(user);
+			} else {
+				userDao.save(user, user.getId());
+			}
+            ar.setStatus(true);
+            ar.setMsg("We've sent a 5 digit code to your phone number!");
+        } else {
+            ar.setStatus(false);
+            ar.setMsg("We couldn't send sms to you, please check your phone number!");
+        }
+        return ar;
+    }
+
+    private Boolean sendSMS(int code) {
+	    return true;
+    }
+
+    private String generateCodeAndSendSMS() {
+	    int code = 5222;
+        String codeHashed = BCrypt.hashpw(""+code, BCrypt.gensalt());
+        if(sendSMS(code))
+            return codeHashed;
+        else
+            return null;
+    }
 
 //	/**
 //	 * show admin login page

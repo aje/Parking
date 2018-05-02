@@ -21,18 +21,21 @@ public class UserService {
     }
 
     public boolean update(User user, int id) {
-        return  this.userDao.save(user,id);
+        return this.userDao.save(user, id);
     }
 
     public Boolean delete(int id, Boolean flag) {
         return this.userDao.delete(id);
     }
+
     public User getOne(int id) {
         return this.userDao.get(id);
     }
+
     public List<User> get(String queryString) {
         return this.userDao.get(queryString);
     }
+
     public Boolean isMobileExist(String mobile) {
         return this.userDao.isMobileExist(mobile);
     }

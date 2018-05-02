@@ -1,8 +1,11 @@
 package com.dao;
 
+import com.controllers.UserController;
 import com.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
@@ -14,7 +17,7 @@ import java.util.List;
 @Transactional
 public class UserDaoImp implements UserDao {
 
-
+    private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private final SessionFactory sessionFactory;
 
 	@Autowired
@@ -29,7 +32,7 @@ public class UserDaoImp implements UserDao {
 	public Boolean add(User user) {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+//			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 			session.persist(user);
 			return true;
 		} catch (Exception e) {
@@ -47,6 +50,7 @@ public class UserDaoImp implements UserDao {
 		try {
 			User obj = session.get(User.class, id);
 			if(user.getMobile() != null) obj.setMobile(user.getMobile());
+            if(user.getConfirmMobile() != null) obj.setConfirmMobile(user.getConfirmMobile());
 			if(user.getName() != null) obj.setName(user.getName());
 			if(user.getStatus() != true || user.getStatus() != false ) obj.setStatus(user.getStatus());
 			if(user.getType() != null) obj.setType(user.getType());
@@ -58,7 +62,6 @@ public class UserDaoImp implements UserDao {
 			if(user.getOrderCount() != null) obj.setOrderCount(user.getOrderCount());
 			if(user.getAvatarLink() != null) obj.setAvatarLink(user.getAvatarLink());
 			if(user.getRememberToken() != null) obj.setRememberToken(user.getRememberToken());
-			if(user.getRole() != null) obj.setRole(user.getRole());
 			session.update(obj);
 			return true;
 		} catch (Exception e) {
@@ -68,7 +71,7 @@ public class UserDaoImp implements UserDao {
 	}
 
 	/**
-	 * change user database
+	 * insert user database
 	 */
 	@Override
 	public Boolean save(User user) {
@@ -105,7 +108,10 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public Boolean isMobileExist(String mobile){
 		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("from users WHERE MOBILE = " + mobile) != null;
+		if (session.createQuery("from users WHERE mobile = " + mobile).list().isEmpty())
+		    return false;
+		else
+		    return true;
 	}
 
 

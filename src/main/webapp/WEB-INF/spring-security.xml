@@ -13,7 +13,7 @@
         <intercept-url pattern="/admin/**" access="hasAuthority('5')" />
         <intercept-url pattern="/user/**" access="hasAnyAuthority('5, 1') " />
         <intercept-url pattern="/**" access="permitAll()" />
-        <form-login login-page="/login" username-parameter="mobile" default-target-url="/login-success" />
+        <form-login login-page="/login" username-parameter="mobile" default-target-url="/login-success" password-parameter="confirm_mobile" />
         <!--<logout  />-->
         <!--<csrf disabled="true"/>-->
     </http>
@@ -27,7 +27,7 @@
     <authentication-manager>
         <authentication-provider>
             <password-encoder ref="bcryptEncoder"/>
-            <jdbc-user-service data-source-ref="dataSource"  users-by-username-query="SELECT mobile, password, status FROM users WHERE mobile = ? "
+            <jdbc-user-service data-source-ref="dataSource"  users-by-username-query="SELECT mobile, confirm_mobile, status FROM users WHERE mobile = ? "
                                authorities-by-username-query="select mobile, type from users WHERE mobile = ?" />
             <!--<user-service>-->
                 <!--<user name="beh" authorities="ADMIN" password="$2a$10$ddEWZUl8aU0GdZPPpy7wbu82dvEw/pBpbRvDQRqA41y6mK1CoH00m"></user>-->

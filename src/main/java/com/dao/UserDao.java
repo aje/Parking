@@ -10,6 +10,6 @@ public interface UserDao {
 	Boolean save(User user);
 	Boolean delete(int id);
 	User get(int id);
-	List<User> get(String queryString);
+	public List<User> get(String queryString);
 	Boolean isMobileExist(String mobile);
 }

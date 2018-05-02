@@ -63,6 +63,51 @@ var SnippetLogin = function() {
         });
     }
 
+    var handleGetCode = function () {
+        $('#m_login_getcode_submit').click(function(e) {
+            e.preventDefault();
+            var btn = $(this);
+            var form = $(this).closest('form');
+            form.validate({
+                rules: {
+                    mobile: {
+                        required: true
+                    }
+                }
+            });
+
+            if (!form.valid()) {
+                return;
+            }
+
+            btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+
+            form.ajaxSubmit({
+                url: '/getCode',
+                success: function(response, status, xhr, $form) {
+                    if(response.status) {
+                        showErrorMsg(form, 'success', response.msg);
+                        $("#code-holder").removeClass("collapse");
+                        btn.text('Get code (60)');
+                        var expireTime = 59;
+                        var timeout = setInterval(function () {
+                            btn.text("Get code (" + (expireTime--) + ")");
+                            if(expireTime < 0) {
+                                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false).text("Get code");
+                                clearInterval(timeout);
+                            }
+                        }, 1000);
+                    }
+                    else {
+                        showErrorMsg(form, 'danger', response.msg);
+                        btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    }
+
+                }
+            });
+        });
+    }
+
     var handleSignInFormSubmit = function() {
         $('#m_login_signin_submit').click(function(e) {
             e.preventDefault();
@@ -74,7 +119,7 @@ var SnippetLogin = function() {
                     mobile: {
                         required: true
                     },
-                    password: {
+                    confirm_mobile: {
                         required: true
                     }
                 }
@@ -86,7 +131,7 @@ var SnippetLogin = function() {
 
             // form.submit();
 
-            // btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+            btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
                 url: '/login',
@@ -211,10 +256,11 @@ var SnippetLogin = function() {
     return {
         // public functions
         init: function() {
-            handleFormSwitch();
+            // handleFormSwitch();
             handleSignInFormSubmit();
-            handleSignUpFormSubmit();
-            handleForgetPasswordFormSubmit();
+            handleGetCode();
+            // handleSignUpFormSubmit();
+            // handleForgetPasswordFormSubmit();
         }
     };
 }();

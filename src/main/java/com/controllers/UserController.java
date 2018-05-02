@@ -50,7 +50,7 @@ public class UserController extends User {
 
 	@RequestMapping(value = "/users/add", method = RequestMethod.POST)
 	public String add(@Valid @ModelAttribute("user") User u, BindingResult result) {
-		logger.info(u.toString());
+//		logger.info(u.toString());
 		if (result.hasErrors()) {
 			return "/auth/register";
 		} else {

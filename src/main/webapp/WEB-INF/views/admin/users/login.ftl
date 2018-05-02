@@ -16,121 +16,55 @@
 				</a>
 			</div>
 			<div class="m-login__signin">
-				<div class="m-login__head">
+				<div class="m-login__head m--margin-bottom-20">
 					<h3 class="m-login__title">
-						Sign In To Admin
+						Sign In To Parking
 					</h3>
 					<div id="login-error" class="form-control-feedback">${msg!}</div>
 				</div>
 				<form class="m-login__form m-form" action="/login" method="post">
-					<div class="form-group m-form__group">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <#--<div class="input-group m-input__group">-->
+                        <#--<input type="text" class="form-control  m-input"  placeholder="Mobile" name="mobile" autocomplete="off">-->
+                        <#--<div class="input-group-append">-->
+                            <#--<button class="btn btn-primary" type="button">-->
+                                <#--Get Code-->
+							<#--</button>-->
+						<#--</div>-->
+                        <#--<div id="mobile-error" class="form-control-feedback">${mobileError!}</div>-->
+					<#--</div>-->
+                    <div class="form-group m-form__group">
 						<input class="form-control m-input" type="text" placeholder="Mobile" name="mobile" autocomplete="off">
 						<div id="mobile-error" class="form-control-feedback">${mobileError!}</div>
 					</div>
-					<div class="form-group m-form__group">
-						<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
+					<div class="form-group m-form__group collapse" id="code-holder">
+						<input class="form-control m-input m-login__form-input--last" type="text" placeholder="Code" name="confirm_mobile">
 					</div>
-					<div class="row m-login__form-sub">
-						<div class="col m--align-left m-login__form-left">
-							<label class="m-checkbox  m-checkbox--light">
-								<input type="checkbox" checked value="true" name="remember_me">
-								Remember me
-								<span></span>
-							</label>
-						</div>
-						<div class="col m--align-right m-login__form-right">
-							<a href="javascript:;" id="m_login_forget_password" class="m-link">
-								Forget Password ?
-							</a>
-						</div>
-					</div>
+					<#--<div class="row m-login__form-sub">-->
+						<#--<div class="col m--align-left m-login__form-left">-->
+							<#--<label class="m-checkbox  m-checkbox--light">-->
+								<#--<input type="checkbox" checked value="true" name="remember_me">-->
+								<#--Remember me-->
+								<#--<span></span>-->
+							<#--</label>-->
+						<#--</div>-->
+						<#--<div class="col m--align-right m-login__form-right">-->
+							<#--<a href="javascript:;" id="m_login_forget_password" class="m-link">-->
+								<#--Forget Password ?-->
+							<#--</a>-->
+						<#--</div>-->
+					<#--</div>-->
 					<div class="m-login__form-action">
-						<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">
-							Sign In
+						<button id="m_login_getcode_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">
+							Get Code
 						</button>
+
+
+                        <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">
+                            Login
+                        </button>
 					</div>
 				</form>
-			</div>
-			<div class="m-login__signup">
-				<div class="m-login__head">
-					<h3 class="m-login__title">
-						Sign Up
-					</h3>
-					<div class="m-login__desc">
-						Enter your details to create your account:
-					</div>
-				</div>
-				<form class="m-login__form m-form" action="">
-					<div class="form-group m-form__group">
-						<input class="form-control m-input" type="text" placeholder="Fullname" name="fullname">
-					</div>
-					<div class="form-group m-form__group">
-						<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
-					</div>
-					<div class="form-group m-form__group">
-						<input class="form-control m-input" type="password" placeholder="Password" name="password">
-					</div>
-					<div class="form-group m-form__group">
-						<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Confirm Password" name="rpassword">
-					</div>
-					<div class="row form-group m-form__group m-login__form-sub">
-						<div class="col m--align-left">
-							<label class="m-checkbox m-checkbox--light">
-								<input type="checkbox" name="agree">
-								I Agree the
-								<a href="#" class="m-link m-link--focus">
-									terms and conditions
-								</a>
-								.
-								<span></span>
-							</label>
-							<span class="m-form__help"></span>
-						</div>
-					</div>
-					<div class="m-login__form-action">
-						<button id="m_login_signup_submit" class="btn m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">
-							Sign Up
-						</button>
-						&nbsp;&nbsp;
-						<button id="m_login_signup_cancel" class="btn m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn">
-							Cancel
-						</button>
-					</div>
-				</form>
-			</div>
-			<div class="m-login__forget-password">
-				<div class="m-login__head">
-					<h3 class="m-login__title">
-						Forgotten Password ?
-					</h3>
-					<div class="m-login__desc">
-						Enter your email to reset your password:
-					</div>
-				</div>
-				<form class="m-login__form m-form" action="">
-					<div class="form-group m-form__group">
-						<input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
-					</div>
-					<div class="m-login__form-action">
-						<button id="m_login_forget_password_submit" class="btn m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">
-							Request
-						</button>
-						&nbsp;&nbsp;
-						<button id="m_login_forget_password_cancel" class="btn m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn">
-							Cancel
-						</button>
-					</div>
-				</form>
-			</div>
-			<div class="m-login__account">
-				<span class="m-login__account-msg">
-					Don't have an account yet ?
-				</span>
-				&nbsp;&nbsp;
-				<a href="javascript:;" id="m_login_signup" class="m-link m-link--light m-login__account-link">
-					Sign Up
-				</a>
 			</div>
 		</div>
 	</div>
