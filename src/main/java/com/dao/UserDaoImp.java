@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +31,6 @@ public class UserDaoImp implements UserDao {
 	public Boolean add(User user) {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-//			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 			session.persist(user);
 			return true;
 		} catch (Exception e) {

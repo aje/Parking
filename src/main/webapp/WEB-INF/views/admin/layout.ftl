@@ -52,8 +52,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta content="${_csrf.token}" name="_csrf" />
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta content="${_csrf.token!}" name="_csrf" />
+    <meta name="_csrf_header" content="${_csrf.headerName!}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
     <script>
       WebFont.load({

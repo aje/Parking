@@ -29,19 +29,6 @@ public class GlobalController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         logger.info(auth.getName());
         if (session.getAttribute("authUser") == null) {
-            // set session
-//            List<User> user = userDao.get(" WHERE mobile = " + auth.getName() );
-//            if (!user.isEmpty()) {
-//                authUser.setFullname(user.get(0).getName());
-//                authUser.setMobile(user.get(0).getMobile());
-//                authUser.setType(user.get(0).getType());
-//
-//                session.setAttribute("user", authUser); // set session
-//            }
-//            logger.info(authUser.toString());
-//            return authUser;
-//        } else if (auth.getName() == "anonymousUser" )  {
-//            logger.info("null");
             return null;
         }
         return (AuthUser) session.getAttribute("authUser");

@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.dao.UserDao;
+import com.models.Lot;
 import com.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import java.util.List;
  *
  */
 @Controller
-@SessionAttributes("name")
 public class UserController extends User {
 
 	private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -43,6 +43,7 @@ public class UserController extends User {
 //		return null;
 //	}
 
+
 	@RequestMapping("/user/profile")
 	public String login() {
 		return "/user/profile";
@@ -59,12 +60,17 @@ public class UserController extends User {
 		}
 	}
 
+	@RequestMapping("/admin/users/all")
+	public ModelAndView showUsers(){
+		ModelAndView model = new ModelAndView("/admin/users/users");
+		return model;
+	}
 	/**
 	 * show all users
 	 */
 	@RequestMapping("/admin/users/json")
 	@Transactional
-	public @ResponseBody List<User> showUsers() {
+	public @ResponseBody List<User> getJson() {
 		return  userDao.get("");
 	}
 
@@ -94,7 +100,10 @@ public class UserController extends User {
         userDao.delete(id);
 		return model;
 	}
-	
+
+
+
+
 	/**
 	 * show edit page
 	 */
