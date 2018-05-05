@@ -44,6 +44,13 @@ public class Lot  implements Serializable {
 	@JsonIgnore
 	private Set<Spot> lotSpots = new HashSet<Spot>(0);
 
+	public Set<Spot> getLotSpots() {
+		return lotSpots;
+	}
+
+	public void setLotSpots(Set<Spot> lotSpots) {
+		this.lotSpots = lotSpots;
+	}
 
 	public AddressLot getAddressLot() {
 		return addressLot;
@@ -97,9 +104,7 @@ public class Lot  implements Serializable {
 		this.phone = phone;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+	public Date getCreatedAt() { return createdAt; }
 
 	public Date getUpdatedAt() {
 		return updatedAt;

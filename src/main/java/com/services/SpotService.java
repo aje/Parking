@@ -37,4 +37,8 @@ public class SpotService {
     public Spot get(int id) {
         return this.spotDao.get(id);
     }
+
+    public List<Spot> getLotSpot(int id) {
+        return this.spotDao.get(" WHERE lot_id = " + id);
+    }
 }

@@ -60,6 +60,10 @@
                 "title" : "Add Parking Lot",
                 "icon" : "m-menu__link-bullet--dot",
                 "link" : "/admin/lots/add"
+            },{
+                "title" : "Add Parking Spots",
+                "icon" : "m-menu__link-bullet--dot",
+                "link" : "/admin/spots/all"
             }, {
                 "title" : "Map",
                 "icon" : "m-menu__link-bullet--dot",

@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -46,9 +43,8 @@ public class SpotController extends Spot {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@Transactional
 	public @ResponseBody
-	AjaxResponse addLotWithSpots(@Valid @ModelAttribute("spot") Spot spot, BindingResult result) {
+	AjaxResponse addSpot(@Valid @ModelAttribute("spot") Spot spot, BindingResult result) {
 		AjaxResponse aj = new AjaxResponse();
-//		logger.info(spot.toString());
 		if (result.hasErrors()) {
 			aj.setStatus(false);
 			aj.setMsg("Something is wrong with binding data to class");
@@ -62,5 +58,14 @@ public class SpotController extends Spot {
 		}
 		return aj;
 	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@Transactional
+	public @ResponseBody
+	List<Spot> getSpotsOfOneLot(@PathVariable("id")  int id) {
+		return this.spotSrv.getLotSpot(id);
+	}
+
+
 
 }

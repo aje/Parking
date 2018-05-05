@@ -2,6 +2,7 @@ package com.dao;
 
 import com.controllers.UserController;
 import com.models.Lot;
+import com.models.Spot;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -66,5 +67,11 @@ public class LotDaoImp implements LotDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public List<Spot> getSpots() {
+
+        return null;
     }
 }

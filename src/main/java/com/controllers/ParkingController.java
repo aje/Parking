@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.dao.LotDao;
 import com.models.Lot;
+import com.models.Spot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/lots")
@@ -47,8 +49,6 @@ public class ParkingController {
     List<Lot> getJson() {
         return  this.lotDao.get("");
     }
-
-
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Transactional

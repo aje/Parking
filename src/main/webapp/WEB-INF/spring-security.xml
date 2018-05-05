@@ -15,7 +15,7 @@
         <intercept-url pattern="/**" access="permitAll()" />
         <form-login login-page="/login" username-parameter="mobile" always-use-default-target="true" default-target-url="/login-success" password-parameter="confirm_mobile" />
         <!--<logout  />-->
-        <csrf disabled="true" />
+        <!--<csrf disabled="true" />-->
     </http>
 
 
