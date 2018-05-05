@@ -123,7 +123,6 @@ public class Lot  implements Serializable {
 				", capacity=" + capacity +
 				", name='" + name + '\'' +
 				", phone='" + phone + '\'' +
-				", address=" + addressLot +
 				", createdAt=" + createdAt +
 				", updatedAt=" + updatedAt +
 				'}';
