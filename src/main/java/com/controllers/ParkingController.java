@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/lots/")
+@RequestMapping("/admin/lots")
 public class ParkingController {
     private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
 

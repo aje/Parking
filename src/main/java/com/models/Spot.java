@@ -1,80 +1,103 @@
 package com.models;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.*;
 import javax.sql.DataSource;
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Spot {
-	
-	@Autowired
-	DataSource dataSource;
+@Entity(name = "spots")
+@DynamicUpdate
+public class Spot  implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public Spot() {
 		// TODO Auto-generated constructor stub
 	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int type;
-	private Lora loraSpot;
+
+	@Column(name = "lora_serial")
+	private Integer loraSerial;
+
+	@ManyToOne
+	@JoinColumn(name = "lot_id", nullable = false)
 	private Lot lot;
-	private boolean status;
-	private AddressSpot spotAddress;
-	private Date created_at;
-	private Date updated_at;
 
-	/*
-	* setters
-	*/
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+	@Column(name = "used_count", insertable=false)
+	private Integer userCount;
 
-	public void setType(int type) {
-		this.type = type;
-	}
 
-	public void setLot(Lot lot) {
-		this.lot = lot;
-	}
-	
-	public void setLoraSpot(Lora loraSpot) {
-		this.loraSpot = loraSpot;
-	}
+	@Column(insertable=false)
+	private Integer status;
 
-	public void setSpotLocation(AddressSpot spotAddress) {
-		this.spotAddress = spotAddress;
-	}
+	@Column(insertable=false)
+	private Integer type;
 
-	/*
-	* getters
-	*/
-	public boolean getStatus() {
-		return status;
-	}
-	
+	@Column(name = "created_at", updatable = false, insertable=false)
+	private java.util.Date createdAt;
+
+	@Column(name = "updated_at", updatable = false, insertable = false)
+	private java.util.Date updatedAt;
+
 	public int getId() {
 		return id;
 	}
 
-	public int getType() {
-		return type;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Integer getLoraSerial() {
+		return loraSerial;
+	}
+
+	public void setLoraSerial(Integer loraSerial) {
+		this.loraSerial = loraSerial;
 	}
 
 	public Lot getLot() {
 		return lot;
 	}
 
-
-	public Lora getLoraSpot() {
-		return loraSpot;
+	public void setLot(Lot lot) {
+		this.lot = lot;
 	}
 
-	public AddressSpot getSpotLocation() {
-		return spotAddress;
+	public Integer getUserCount() {
+		return userCount;
 	}
 
-	/*
-	* add and edit and get functions
-	*/
+	public void setUserCount(Integer userCount) {
+		this.userCount = userCount;
+	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public java.util.Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public java.util.Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	//	private AddressSpot spotAddress;
 }

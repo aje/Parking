@@ -1,10 +1,13 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "lots")
 @DynamicUpdate
@@ -21,6 +24,12 @@ public class Lot  implements Serializable {
 	@Column(insertable=false)
 	private int type;
 
+	@Column(name = "created_at", updatable = false, insertable=false)
+	private Date createdAt;
+
+	@Column(name = "updated_at", updatable = false, insertable = false)
+	private Date updatedAt;
+
 	private int capacity;
 
 	private String name;
@@ -31,11 +40,10 @@ public class Lot  implements Serializable {
 	@JoinColumn(name = "address_lot_id")
 	private AddressLot addressLot;
 
-	@Column(name = "created_at", updatable = false, insertable=false)
-	private Date createdAt;
+	@OneToMany(mappedBy = "lot")
+	@JsonIgnore
+	private Set<Spot> lotSpots = new HashSet<Spot>(0);
 
-	@Column(name = "updated_at", updatable = false, insertable = false)
-	private Date updatedAt;
 
 	public AddressLot getAddressLot() {
 		return addressLot;
@@ -43,14 +51,6 @@ public class Lot  implements Serializable {
 
 	public void setAddressLot(AddressLot addressLot) {
 		this.addressLot = addressLot;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getStatus() {
@@ -89,12 +89,12 @@ public class Lot  implements Serializable {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public void setCreatedAt(Date createdAt) {
@@ -103,10 +103,6 @@ public class Lot  implements Serializable {
 
 	public Date getUpdatedAt() {
 		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 	@Override

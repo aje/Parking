@@ -28,10 +28,6 @@ public class UserService {
         return this.userDao.delete(id);
     }
 
-    public User getOne(int id) {
-        return this.userDao.get(id);
-    }
-
     public List<User> get(String queryString) {
         return this.userDao.get(queryString);
     }
