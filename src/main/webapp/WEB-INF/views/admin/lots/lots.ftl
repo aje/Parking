@@ -1,6 +1,6 @@
+<#include "../layout.ftl">
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]/>
 <#assign pageScript><@spring.url value="${jsPath}data-json-lots.js" /></#assign>
-<#include "../layout.ftl">
 
 <#macro otherSripts>
 <script src=${pageScript} type="text/javascript"></script>

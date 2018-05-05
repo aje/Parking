@@ -4,16 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "address_lot")
 @DynamicUpdate
-public class AddressLot {
+public class AddressLot  implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer  id;
 
 	@Column(insertable=false)
 	private int status;
@@ -41,17 +43,18 @@ public class AddressLot {
 	@Column(name = "updated_at", updatable = false, insertable = false)
 	private Date updatedAt;
 
-	@OneToOne
-	@JsonIgnore
-	private Lot lot;
-
-	public Lot getLot() {
-		return lot;
-	}
-
-	public void setLot(Lot lot) {
-		this.lot = lot;
-	}
+//	@OneToOne
+//	@JoinColumn(name = "lot_id")
+//	@JsonIgnore
+//	private Lot lot;
+//
+//	public Lot getLot() {
+//		return lot;
+//	}
+//
+//	public void setLot(Lot lot) {
+//		this.lot = lot;
+//	}
 
 	public int getId() {
 		return id;
@@ -139,5 +142,9 @@ public class AddressLot {
 				", createdAt=" + createdAt +
 				", updatedAt=" + updatedAt +
 				'}';
+	}
+
+	public AddressLot() {
+
 	}
 }

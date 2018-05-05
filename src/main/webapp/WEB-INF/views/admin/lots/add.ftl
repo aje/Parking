@@ -148,7 +148,7 @@
                                                 * Name:
                                             </label>
                                             <div class="col-xl-9 col-lg-9">
-                                                <input type="text" name="name" class="form-control m-input" placeholder="" value="">
+                                                <input type="text" name="name" class="form-control m-input" placeholder="" value="fghfghfhfghfgh">
                                                 <span class="m-form__help">
                                                     Please enter the name of parking lot
                                                 </span>
@@ -159,7 +159,7 @@
                                                 * Capacity:
                                             </label>
                                             <div class="col-xl-9 col-lg-9">
-                                                <input type="number" name="capacity" class="form-control m-input" placeholder="" value="">
+                                                <input type="number" name="capacity" class="form-control m-input" placeholder="" value="44">
                                                 <span class="m-form__help">
                                                     Capacity of parking lot, the number of spots
                                                 </span>

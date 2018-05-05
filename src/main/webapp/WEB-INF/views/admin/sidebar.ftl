@@ -55,7 +55,7 @@
             }, {
                 "title" : "All Parking Lots",
                 "icon" : "m-menu__link-bullet--dot",
-                "link" : "#"
+                "link" : "/admin/lots/all"
             }, {
                 "title" : "Add Parking Lot",
                 "icon" : "m-menu__link-bullet--dot",

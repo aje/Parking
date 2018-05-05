@@ -3,14 +3,17 @@ package com.models;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "lots")
 @DynamicUpdate
-public class Lot {
+public class Lot  implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer  id;
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(insertable=false)
 	private int status;
@@ -24,7 +27,8 @@ public class Lot {
 
 	private String phone;
 
-	@OneToOne(mappedBy = "lot", cascade = CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "address_lot_id")
 	private AddressLot addressLot;
 
 	@Column(name = "created_at", updatable = false, insertable=false)
@@ -118,5 +122,9 @@ public class Lot {
 				", createdAt=" + createdAt +
 				", updatedAt=" + updatedAt +
 				'}';
+	}
+
+	public Lot() {
+
 	}
 }

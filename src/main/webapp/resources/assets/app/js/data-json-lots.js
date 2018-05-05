@@ -49,8 +49,8 @@ var DatatableJsonRemoteDemo = function () {
                 // callback function support for column rendering
                 template: function (row) {
                     var status = {
-                        false: {'title': 'Deleted', 'class': 'm-badge--danger'},
-                        true: {'title': 'Working', 'class': 'm-badge--success'}
+                        0: {'title': 'Deleted', 'class': 'm-badge--danger'},
+                        1: {'title': 'Working', 'class': 'm-badge--success'}
                     };
                     return '<span class="m--font-boldest">' + row.name + '</span><br><span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';
                 }
@@ -71,11 +71,11 @@ var DatatableJsonRemoteDemo = function () {
                     return  d.getFullYear()+ '/' + (d.getMonth()+1) + '/' + d.getDate();
                 }
             }, {
-                field: "addressLot",
+                field: "addressLot.id",
                 title: "Address",
                 // callback function support for column rendering
                 template: function (row) {
-                    return '<span class="">' + addressLot.fullAddress + '</span>, <span class="">' + addressLot.city + ', ' + addressLot.province + '</span>';
+                    return '<span class="">' + row.addressLot.fullAddress + '</span>, <span class="">' + row.addressLot.city + ', ' + row.addressLot.province + '</span>';
                 }
             }, {
                 field: "Actions",
