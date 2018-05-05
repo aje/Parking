@@ -4,17 +4,15 @@ var DatatableJsonRemoteDemo = function () {
     //== Private functions
     // basic demo
     var demo = function () {
-        var token = $('meta[name="_csrf"]').attr('content');
-        var header = $('meta[name="_csrf_header"]').attr('content');
+        var segment_str = window.location.pathname; // return segment1/segment2/segment3/segment4
+        var segment_array = segment_str.split( '/' );
+        var last_segment = segment_array[segment_array.length - 1];
+        var  source = (last_segment == "all")?"json":last_segment;
+        console.log(source);
         var datatable = $('.m_datatable').mDatatable({
-            // datasource definition
-            // headers: {
-            //    '_csrf': token,
-            // 	'_csrf_header' : header
-            // },
             data: {
                 type: 'remote',
-                source: 'http://localhost:8080/admin/spots/json',
+                source: 'http://localhost:8080/admin/spots/'+source,
                 pageSize: 10
             },
 

@@ -60,6 +60,9 @@ var DatatableJsonRemoteDemo = function () {
             }, {
                 field: "capacity",
                 title: "Capacity",
+                template: function (row) {
+                    return '<a href=/admin/spots/spot/'+row.id+' class="btn m-btn--pill    btn-info">See all '+ row.capacity+'</a>';
+                }
             }, {
                 field: "createdAt",
                 title: "Sign Up",

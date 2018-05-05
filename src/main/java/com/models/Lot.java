@@ -100,6 +100,10 @@ public class Lot  implements Serializable {
 		this.id = id;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}

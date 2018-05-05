@@ -61,7 +61,7 @@
                 "icon" : "m-menu__link-bullet--dot",
                 "link" : "/admin/lots/add"
             },{
-                "title" : "Add Parking Spots",
+                "title" : "ALL Parking Spots",
                 "icon" : "m-menu__link-bullet--dot",
                 "link" : "/admin/spots/all"
             }, {

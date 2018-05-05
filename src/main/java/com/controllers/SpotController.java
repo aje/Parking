@@ -59,11 +59,17 @@ public class SpotController extends Spot {
 		return aj;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	@Transactional
 	public @ResponseBody
 	List<Spot> getSpotsOfOneLot(@PathVariable("id")  int id) {
 		return this.spotSrv.getLotSpot(id);
+	}
+
+	@RequestMapping(value = "/spot/{id}")
+	public	ModelAndView showSpotsOfOneLot(@PathVariable("id")  int id) {
+		ModelAndView model = new ModelAndView("/admin/spots/spots");
+		return model;
 	}
 
 
