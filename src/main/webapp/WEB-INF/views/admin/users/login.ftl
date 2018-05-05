@@ -34,7 +34,7 @@
                         <#--<div id="mobile-error" class="form-control-feedback">${mobileError!}</div>-->
 					<#--</div>-->
                     <div class="form-group m-form__group">
-						<input class="form-control m-input" type="text" placeholder="Mobile" name="mobile" autocomplete="off">
+						<input class="form-control m-input" type="number" minlength="11" maxlength="11" size="11" required placeholder="Mobile" name="mobile" autocomplete="off">
 						<div id="mobile-error" class="form-control-feedback">${mobileError!}</div>
 					</div>
 					<div class="form-group m-form__group collapse" id="code-holder">

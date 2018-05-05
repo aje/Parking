@@ -71,7 +71,8 @@ var SnippetLogin = function() {
             form.validate({
                 rules: {
                     mobile: {
-                        required: true
+                        required: true,
+                        minlength: 11
                     }
                 }
             });
@@ -117,9 +118,11 @@ var SnippetLogin = function() {
             form.validate({
                 rules: {
                     mobile: {
-                        required: true
+                        required: true,
+                        minlength: 11
                     },
                     confirm_mobile: {
+                        minlength:5,
                         required: true
                     }
                 }

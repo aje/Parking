@@ -968,7 +968,7 @@
                                              class="m--img-rounded m--marginless m--img-centered" alt=""/>
 									</span>
                                     <span class="m-topbar__username m--hide">
-                                    ${authUser.fullname!}
+
 									</span>
                                 </a>
                                 <div class="m-dropdown__wrapper">
@@ -982,14 +982,14 @@
                                                          class="m--img-rounded m--marginless" alt=""/>
                                                 </div>
                                                 <div class="m-card-user__details">
-                                                    <#if authUser??>
-													<span class="m-card-user__name m--font-weight-500">
-                                                    ${authUser.fullname!}
-                                                    </span>
-                                                    <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                                                    ${authUser.mobile!}
-                                                    </#if>
-                                                    </a>
+                                                    <#--<#if authUser??>-->
+													<#--<span class="m-card-user__name m--font-weight-500">-->
+                                                    <#--${authUser.fullname!}-->
+                                                    <#--</span>-->
+                                                    <#--<a href="" class="m-card-user__email m--font-weight-300 m-link">-->
+                                                    <#--${authUser.mobile!}-->
+                                                    <#--</#if>-->
+                                                    <#--</a>-->
                                                 </div>
                                             </div>
                                         </div>

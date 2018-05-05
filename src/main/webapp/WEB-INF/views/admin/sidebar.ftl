@@ -57,6 +57,10 @@
                 "icon" : "m-menu__link-bullet--dot",
                 "link" : "#"
             }, {
+                "title" : "Add Parking Lot",
+                "icon" : "m-menu__link-bullet--dot",
+                "link" : "/admin/lots/add"
+            }, {
                 "title" : "Map",
                 "icon" : "m-menu__link-bullet--dot",
                 "link" : "#"
