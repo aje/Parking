@@ -76,6 +76,9 @@ var DatatableJsonRemoteDemo = function () {
                     return  d.getFullYear()+ '/' + (d.getMonth()+1) + '/' + d.getDate();
                 }
             }, {
+                field: "lot.name",
+                title: "Parking Lot"
+            }, {
                 field: "lot.id",
                 title: "Address",
                 // callback function support for column rendering

@@ -4,7 +4,6 @@ import com.dao.SpotDao;
 import com.models.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,5 +39,9 @@ public class SpotService {
 
     public List<Spot> getLotSpot(int id) {
         return this.spotDao.get(" WHERE lot_id = " + id);
+    }
+
+    public Number countSpots(String queryString) {
+        return this.spotDao.countSpots(" WHERE status = 1 " + queryString);
     }
 }

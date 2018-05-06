@@ -1,11 +1,8 @@
 package com.dao;
 
-import com.controllers.UserController;
 import com.models.Spot;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +13,12 @@ import java.util.List;
 @Transactional
 public class SpotDaoImp implements SpotDao {
 
-    private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final SessionFactory sessionFactory;
 
     @Autowired
     public SpotDaoImp(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
 
     @Override
     public Boolean add(Spot spot) {
@@ -66,5 +61,11 @@ public class SpotDaoImp implements SpotDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Number countSpots(String queryString) {
+        Session session = this.sessionFactory.getCurrentSession();
+        return (Number) session.createQuery("SELECT count(*) from  spots " + queryString).uniqueResult();
     }
 }

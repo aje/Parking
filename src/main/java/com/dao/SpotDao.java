@@ -11,4 +11,6 @@ public interface SpotDao {
     Boolean delete(int id);                         // delete lot / change status to 0
     Spot get(int id);                                // fetch one lot
     List<Spot> get(String queryString);              // fetch list of lots
+
+    Number countSpots(String queryString);
 }

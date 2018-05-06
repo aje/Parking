@@ -30,7 +30,6 @@ public class Spot  implements Serializable {
 	@Column(name = "used_count", insertable=false)
 	private Integer userCount;
 
-
 	@Column(insertable=false)
 	private Integer status;
 

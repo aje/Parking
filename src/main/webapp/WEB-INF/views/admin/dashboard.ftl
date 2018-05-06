@@ -15,7 +15,7 @@
 						<div class="m-portlet__body">
 							<div class="m-widget26">
 								<div class="m-widget26__number">
-									570
+									${lotsCount!}
 									<small>
 										All Parking Events
 									</small>
@@ -31,7 +31,7 @@
 						<div class="m-portlet__body">
 							<div class="m-widget26">
 								<div class="m-widget26__number">
-									690
+									${spotsCount}
 									<small>
 										All Spots
 									</small>
@@ -48,7 +48,7 @@
 						<div class="m-portlet__body">
 							<div class="m-widget26">
 								<div class="m-widget26__number">
-									230
+									${countOrders!}
 									<small>
 										All Transactions
 									</small>

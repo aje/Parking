@@ -12,5 +12,6 @@ public interface LotDao {
     Boolean delete(int id);                         // delete lot / change status to 0
     Lot get(int id);                                // fetch one lot
     List<Lot> get(String queryString);              // fetch list of lots
-    List<Spot> getSpots();
+
+    Number countLots(String queryString);
 }

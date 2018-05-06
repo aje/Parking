@@ -20,7 +20,7 @@
         <fileset id="web application context" name="MVC application context" removed="true">
           <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/security.xml</file>
         </fileset>
-        <fileset id="fileset2" name="Spring Application Context" removed="false">
+        <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml</file>
           <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/spring-security.xml</file>
         </fileset>

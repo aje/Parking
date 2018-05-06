@@ -28,4 +28,9 @@ public class LotService {
     public List<Lot> get(String queryString) {
         return this.lotDao.get(queryString);
     }
+
+    public Number countLots(String queryString) {
+
+        return 0;
+    }
 }
