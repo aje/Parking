@@ -2,6 +2,7 @@ package com.services;
 
 import com.dao.LotDao;
 import com.models.Lot;
+import com.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,12 @@ public class LotService {
     }
 
     public Number countLots(String queryString) {
+        return lotDao.countLots("WHERE status = 1 " + queryString);
+    }
 
-        return 0;
+    public Lot mostUsedLot(User user) {
+        Lot lot = new Lot();
+        lot.setName("Khunamun");
+        return lot;
     }
 }

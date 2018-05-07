@@ -38,6 +38,6 @@ public class OrderService {
     }
 
     public Number countOrders(String queryString) {
-        return this.orderDao.countOrders(" WHERE status = 1 " + queryString);
+        return this.orderDao.countOrders(queryString);
     }
 }

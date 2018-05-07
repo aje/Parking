@@ -35,4 +35,8 @@ public class UserService {
     public Boolean isMobileExist(String mobile) {
         return this.userDao.isMobileExist(mobile);
     }
+
+    public User getByMobile(String mobile) {
+        return this.userDao.get(" WHERE mobile = " + mobile).get(0);
+    }
 }

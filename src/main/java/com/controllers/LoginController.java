@@ -140,7 +140,7 @@ public class LoginController {
 		} else if (user.getType() == 5)
 			ajaxResponse.setRedirect("/admin/dashboard");
 		else if (user.getType() == 1){
-			ajaxResponse.setRedirect("/user/profile");
+			ajaxResponse.setRedirect("/user/dashboard");
 		}
 		HttpSession session = request.getSession();
 		session.setAttribute("authUser", sm); // set session
@@ -187,7 +187,7 @@ public class LoginController {
 			if (user.getType() == 5)
 				ajaxResponse.setRedirect("/admin/dashboard");
 			else if (user.getType() == 1) {
-				ajaxResponse.setRedirect("/user/profile");
+				ajaxResponse.setRedirect("/user/dashboard");
 			}
 		}
 		return ajaxResponse;
