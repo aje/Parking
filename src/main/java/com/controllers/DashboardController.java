@@ -14,26 +14,54 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DashboardController {
 
-    private final LotService lotService;
-    private final OrderService orderService;
-    private final UserService userService;
+    private LotService lotService;
+    private OrderService orderService;
+    private UserService userService;
 
     @Autowired
     public DashboardController(LotService lotService, OrderService orderService, UserService userService) {
+        this.userService = userService;
         this.lotService = lotService;
         this.orderService = orderService;
-        this.userService = userService;
+    }
+
+    private User getUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getByMobile(auth.getName());
     }
 
     @RequestMapping("/dashboard")
     public ModelAndView showDashboard() {
         ModelAndView model = new ModelAndView("/dashboard/user-dashboard");
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getByMobile(auth.getName());
-
         model.addObject("hoursCounts", orderService.countOrders(""));
-        model.addObject("mostUsedLot", lotService.mostUsedLot(user));
-        model.addObject("orderCounts", orderService.countOrders("WHERE status = 1  and user_id = " + user.getId()));
+        model.addObject("mostUsedLot", lotService.mostUsedLot(this.getUser()));
+        model.addObject("orderCounts", orderService.countOrders("WHERE status = 1  and user_id = " + getUser().getId()));
         return model;
     }
+
+    @RequestMapping("/user/settings")
+    public ModelAndView showUserEdit() {
+        ModelAndView model = new ModelAndView("/user/edit");
+        return model;
+    }
+
+    @RequestMapping("/dashboard/parking-history")
+    public ModelAndView showParkHistory() {
+        ModelAndView model = new ModelAndView("/dashboard/park-history");
+        model.addObject("orders", orderService.get("WHERE user_id  = " + getUser().getId()));
+        return model;
+    }
+
+    @RequestMapping("/dashboard/lots-history")
+    public ModelAndView showLotsHistory() {
+        ModelAndView model = new ModelAndView("/dashboard/lots-history");
+        return model;
+    }
+
+    @RequestMapping("/dashboard/payments-history")
+    public ModelAndView showPaymentsHistory() {
+        ModelAndView model = new ModelAndView("/dashboard/payment-history");
+        return model;
+    }
+
 }
