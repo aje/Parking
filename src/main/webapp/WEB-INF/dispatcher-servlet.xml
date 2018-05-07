@@ -71,7 +71,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/parking" />
         <property name="username" value="root" />
-        <property name="password" value="" />
+        <property name="password" value="%c6!n#VqJ4ThE~42" />
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">

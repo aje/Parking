@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
@@ -31,6 +32,7 @@ public class LoginController {
 
 	private  static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private final UserDao userDao;
+	private Object result;
 
 	@Autowired
 	public LoginController(UserDao userDao) {
@@ -47,6 +49,14 @@ public class LoginController {
 	}
 
 	/**
+	 * show login page
+	 */
+	@RequestMapping("/add-plate")
+	public String getPlateShow() {
+		return "/admin/users/get-plate";
+	}
+
+	/**
 	 * loginChecker handler
 	 */
 	@RequestMapping("/getCode")
@@ -58,10 +68,8 @@ public class LoginController {
         if(!userExists) {
             user.setMobile(mobile);
             userDao.add(user);
-            logger.info("user is not exist");
         } else {
             user = userDao.get(" WHERE mobile = "+mobile).get(0);
-            logger.info("Id user" + user.getId());
         }
         String hashCode = generateCodeAndSendSMS();
         if(hashCode != null) {
@@ -116,20 +124,20 @@ public class LoginController {
 	/**
 	 * login  handler
 	 */
-	//	public @ResponseBody AjaxResponse loginCheck(@Valid @ModelAttribute("user1") User user1, BindingResult result, ModelMap model, HttpServletResponse response, HttpServletRequest request) {
-
 	@RequestMapping(value="/login-success")
 	public @ResponseBody AjaxResponse loginCheck(HttpServletResponse response, HttpServletRequest request) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		AjaxResponse ajaxResponse = new AjaxResponse();
 		User user = userDao.get(" WHERE mobile = "+auth.getName()).get(0);
+		AjaxResponse ajaxResponse = new AjaxResponse();
 		AuthUser sm = new AuthUser();
 		sm.setFullname(user.getName());
 		sm.setMobile(user.getMobile());
 		sm.setType(user.getType());
 //		logger.info(userDao.get(" WHERE mobile = "+auth.getName()).get(0).toString());
 		ajaxResponse.setStatus(true);
-		if (user.getType() == 5)
+		if(user.getPlateNumber() == null) {
+			ajaxResponse.setRedirect("/add-plate");
+		} else if (user.getType() == 5)
 			ajaxResponse.setRedirect("/admin/dashboard");
 		else if (user.getType() == 1){
 			ajaxResponse.setRedirect("/user/profile");
@@ -168,12 +176,27 @@ public class LoginController {
 		return ajaxResponse;
 	}
 
+	@RequestMapping(value="/addPlate",  method = RequestMethod.POST)
+	public @ResponseBody AjaxResponse addPlate(@RequestParam("plateNumber") String plateNumber) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userDao.get(" WHERE mobile = "+auth.getName()).get(0);
+		user.setPlateNumber(plateNumber);
+		AjaxResponse ajaxResponse = new AjaxResponse();
+		if(userDao.save(user)) {
+			ajaxResponse.setStatus(true);
+			if (user.getType() == 5)
+				ajaxResponse.setRedirect("/admin/dashboard");
+			else if (user.getType() == 1) {
+				ajaxResponse.setRedirect("/user/profile");
+			}
+		}
+		return ajaxResponse;
+	}
 
 
 
 	/**
 	 * logout
-	 * @throws IOException
 	 */
 	@RequestMapping("/logout")
 	public void logout(HttpServletResponse response, ModelMap model, HttpServletRequest request, SessionStatus sessionStatus) throws IOException {

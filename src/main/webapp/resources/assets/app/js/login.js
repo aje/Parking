@@ -141,14 +141,14 @@ var SnippetLogin = function() {
                 success: function(response, status, xhr, $form) {
 
 
-	                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-	                    if(response.status) {
-	                    	showErrorMsg(form, 'success', response.msg);
-	                    	window.location = response.redirect;
-	                    }
-	                    else {
-	                    	showErrorMsg(form, 'danger', response.msg);
-	                    }
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    if(response.status) {
+                        showErrorMsg(form, 'success', response.msg);
+                        window.location = response.redirect;
+                    }
+                    else {
+                        showErrorMsg(form, 'danger', response.msg);
+                    }
 
                 }
             });
@@ -220,9 +220,8 @@ var SnippetLogin = function() {
 
             form.validate({
                 rules: {
-                    email: {
+                    plateNumber: {
                         required: true,
-                        email: true
                     }
                 }
             });
@@ -234,22 +233,13 @@ var SnippetLogin = function() {
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
-                success: function(response, status, xhr, $form) { 
-                	// similate 2s delay
-                	setTimeout(function() {
-                		btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove 
-	                    form.clearForm(); // clear form
-	                    form.validate().resetForm(); // reset validation states
+                url: '/addPlate',
+                success: function(response, status, xhr, $form) {
+                    if (response.status) {
+                        btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove
+                        window.location(response.redirect);
+                    }
 
-	                    // display signup form
-	                    displaySignInForm();
-	                    var signInForm = login.find('.m-login__signin form');
-	                    signInForm.clearForm();
-	                    signInForm.validate().resetForm();
-
-	                    showErrorMsg(signInForm, 'success', 'Cool! Password recovery instruction has been sent to your email.');
-                	}, 2000);
                 }
             });
         });
@@ -259,11 +249,11 @@ var SnippetLogin = function() {
     return {
         // public functions
         init: function() {
-            // handleFormSwitch();
+            handleFormSwitch();
             handleSignInFormSubmit();
             handleGetCode();
             // handleSignUpFormSubmit();
-            // handleForgetPasswordFormSubmit();
+            handleForgetPasswordFormSubmit();
         }
     };
 }();
